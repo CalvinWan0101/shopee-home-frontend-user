@@ -1,0 +1,14 @@
+.button{
+    border: 0;
+    background-color: #09203f;
+    outline-color: #09203f;
+    outline-width: 2px;
+    outline-style: solid;
+    cursor: pointer;
+    transition: outline 0.3s, outline-color 0.3s, outline-width 0.3s, outline-offset 0.3s, outline-offset 0.3s, background-color 0.3s;
+    &:hover {
+        outline-color: #9999FF;
+        outline-offset: 3px;
+        background-color: #537895;
+    }
+}
