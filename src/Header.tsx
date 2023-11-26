@@ -1,6 +1,6 @@
 import React from 'react'
 import {useEffect , useState} from 'react'
-import './Header.scss'
+//import './Header.scss'
 import {Logo} from './img_src.json'
 import Paper from '@mui/material/Paper'
 import InputBase from '@mui/material/InputBase'
@@ -30,14 +30,14 @@ function Header() {
 
 
     return (
-        <header>
-            <Link to={'/'} id='shopeeLogo'>
-                <div>
-                    <img src={Logo}/>
-                    <div>Shopee Home</div>
-                </div>
-            </Link>
-            {!isLogIn && <div id = "searchbox">
+        <header className=' bg-slate-600 h-20 p-3 flex items-center'>
+            <div className=' h-full w-auto bg-slate-400 rounded-full p-2 box-border'>            
+                <Link to={'/'} id='shopeeLogo' className=' h-full flex items-center'>
+                    <img src={Logo} className=' h-full'/>
+                    <span className=' '>Shopee Home</span>
+                </Link>
+            </div>
+            {!isLogIn && <div id = "searchbox" className=' h-full w-4/6 p-1 box-border'>
                 <Paper component='form' sx={{p: '2px 4px', ml:'10px', display: 'flex', alignItems: 'center', width: "100%", height: "95%"}}>
                     <InputBase sx={{ ml: 1, flex: 1 }} placeholder="搜尋產品或賣家"/>                    
                     <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
@@ -46,13 +46,13 @@ function Header() {
                     </IconButton>
                 </Paper>
             </div>}
-            {isLogIn && <div id ="logintext">
+            {isLogIn && <div id ="logintext" className=' h-full w-3/5 p-3 box-border text-white text-4xl flex items-center'>
                 Login
             </div>}
-            <div id='accountArea'>
-                {!isLogIn && <div id='notLogin'>
+            <div id='accountArea' className=' h-full ml-auto p-1 box-border flex items-center'>
+                {!isLogIn && <div id='notLogin' className=' ml-auto'>
                     <Link to={'login'}>
-                        <Chip sx={{color:'white', width:"100%"}} avatar={<Avatar>N</Avatar>} variant='outlined' label="Log In" />
+                        <Chip sx={{color:'white', width:"auto%"}} avatar={<Avatar>N</Avatar>} variant='outlined' label="Log In" />
                     </Link>
                 </div>}
             </div>

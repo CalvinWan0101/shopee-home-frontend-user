@@ -2,7 +2,7 @@
 // import viteLogo from '/vite.svg'
 import './App.scss'
 import { BrowserRouter , Routes , Route } from 'react-router-dom'
-import HomeTemplate from './HomeTemplate'
+import PageTemplate from './HomeTemplate'
 import LogIn from './LogIn'
 import ProductPreview from './ProductPreview'
 import Home from './Home'
@@ -13,9 +13,9 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path='' element={<HomeTemplate/>}>
+          <Route path='' element={<PageTemplate/>}>
             <Route path='login' element={<LogIn/>}></Route>
-            <Route path='/'></Route>
+            <Route path='/' element={<Home/>}></Route>
           </Route>
         </Routes>
       </BrowserRouter>

@@ -1,11 +1,20 @@
 import React from 'react'
 import ProductPreview from './ProductPreview'
 import {DefultProduct} from './img_src.json'
+import Pimg from './assets/testProductImg.jpg'
 
 function Home() {
+    const data = Array.from({ length: 30 }, (_, index) => ({
+        id: index + 1,
+        text: `Element ${index + 1}`,
+    }));
     return (
-        <div style={{height:'100%', width:'100%'}}>
-            <ProductPreview img='down-tw.img.susercontent.com/file/tw-11134207-7qul7-ljjvj01j7ydi7c' header='陳總的賣場 直播銷售 極速行動電源 現貨熱銷多件優惠組' price={1111} id='1' sellCount={2560}/>
+        <div className=' flex flex-wrap'>
+            {data.map((item) => (
+                <div key={item.id} className=' ml-5 mt-5'>
+                    <ProductPreview img = {Pimg} header={item.text} price={10 * item.id} id='123' sellCount={1000}/>
+                </div>
+            ))}
         </div>
     )
 }

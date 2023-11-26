@@ -2,7 +2,7 @@ import React from 'react'
 import Header from './Header'
 import {Outlet} from 'react-router-dom'
 
-function HomeTemplate() {
+function PageTemplate() {
     return (
         <div>
             <Header/>
@@ -11,4 +11,4 @@ function HomeTemplate() {
     )
 }
 
-export default HomeTemplate
+export default PageTemplate
