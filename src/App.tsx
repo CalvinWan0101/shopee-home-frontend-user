@@ -1,11 +1,9 @@
-// import { useState } from 'react'
-// import viteLogo from '/vite.svg'
 import './App.scss'
 import { BrowserRouter , Routes , Route } from 'react-router-dom'
-import PageTemplate from './HomeTemplate'
+import PageTemplate from './PageTemplate'
 import LogIn from './LogIn'
-import ProductPreview from './ProductPreview'
 import Home from './Home'
+import Product from './Product'
 
 function App() {
 
@@ -14,8 +12,9 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='' element={<PageTemplate/>}>
-            <Route path='login' element={<LogIn/>}></Route>
             <Route path='/' element={<Home/>}></Route>
+            <Route path='/Product/:id' element={<Product/>}></Route>
+            <Route path='/login' element={<LogIn/>}></Route>
           </Route>
         </Routes>
       </BrowserRouter>

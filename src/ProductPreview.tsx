@@ -1,8 +1,26 @@
 import React from 'react'
 import styles from './ProductPreview.module.scss'
-import { Grid , Typography , Paper , ButtonBase } from '@mui/material';
+import { Grid , Typography , Paper , ButtonBase, getInputAdornmentUtilityClass } from '@mui/material';
 
 function ProductPreview(props:{img: string, header: string, price: number, id: string, sellCount: number}) {
+
+    function NumberToString(inputNumber : number){
+        if (inputNumber >= 1000000){
+            return (inputNumber/1000000).toFixed(1) + "M"
+        }
+        else if(inputNumber >= 1000){
+            return (inputNumber / 1000).toFixed(1) + "k"
+        }
+        else{
+            return inputNumber.toString();
+        }
+    }
+
+    function addCommasToNumber(number) {
+        let numString = number.toString();
+        numString = numString.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return numString;
+    }
 
     return (
         <>
@@ -19,16 +37,16 @@ function ProductPreview(props:{img: string, header: string, price: number, id: s
                             </p>
                         </div>
                     </Grid>
-                    <Grid item xs={12} container spacing={2}>
+                    <Grid item xs={12} container>
                         <Grid item xs>
-                            <Typography variant='subtitle2' align='left' color={"orange"}>
-                                { "$" + props.price}
+                            <Typography variant='subtitle2' align='left' color={"orange"} noWrap>
+                                { "$" + addCommasToNumber(props.price)}
                             </Typography>
                         </Grid>
                         <Grid item xs>
-                            <Typography variant='subtitle2' align='right' color={"#A7A7A7"}>
-                                {"已售出" + props.sellCount}
-                            </Typography>                            
+                            <Typography variant='subtitle2' align='right' color={"#A7A7A7"} noWrap>
+                                {"已售出" + NumberToString(props.sellCount)}
+                            </Typography>
                         </Grid>
                     </Grid>
                 </Grid>
