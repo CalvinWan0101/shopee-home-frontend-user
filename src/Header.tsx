@@ -29,8 +29,8 @@ function Header() {
 
 
     return (
-        <header className=' bg-blue-gray-700 h-20 p-3 flex items-center'>
-            <div className=' h-full w-auto bg-blue-gray-400 rounded-full p-2 box-border hover:animate-pulse'>            
+        <header className='h-20 p-3 flex items-center'>
+            <div className=' h-full w-auto bg-gray-900 rounded-full p-2 box-border hover:animate-pulse'>
                 <Link to={'/'} id='shopeeLogo' className=' h-full flex items-center'>
                     <img src={Logo} className=' h-full'/>
                     <span className=' flex-nowrap'>Shopee Home</span>
@@ -54,7 +54,7 @@ function Header() {
             }
             <div id='accountArea' className=' h-full ml-auto p-1 box-border flex items-center'>
                 {!isLogIn && 
-                <div id='notLogin' className=' ml-auto hover:animate-pulse'>
+                <div id='notLogin' className=' ml-auto animate-bounce'>
                     <Link to={'login'}>
                         <Chip sx={{color:'white', width:"auto%"}} avatar={<Avatar>N</Avatar>} variant='outlined' label="Log In" />
                     </Link>

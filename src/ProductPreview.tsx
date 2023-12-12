@@ -39,7 +39,7 @@ function ProductPreview(props:{img: string, header: string, price: number, id: s
                     </Grid>
                     <Grid item xs={12} container>
                         <Grid item xs>
-                            <Typography variant='subtitle2' align='left' color={"orange"} noWrap>
+                            <Typography variant='subtitle2' align='left' className=' text-teal-300' noWrap>
                                 { "$" + addCommasToNumber(props.price)}
                             </Typography>
                         </Grid>
