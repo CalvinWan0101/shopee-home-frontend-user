@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from './ProductPreview.module.scss'
 import { Grid , Typography , Paper , ButtonBase, getInputAdornmentUtilityClass } from '@mui/material';
+import { green , lime } from '@mui/material/colors';
 
 function ProductPreview(props:{img: string, header: string, price: number, id: string, sellCount: number}) {
 
@@ -25,7 +26,7 @@ function ProductPreview(props:{img: string, header: string, price: number, id: s
     return (
         <>
         <ButtonBase>
-            <Paper sx={{p:1 , margin:'auto' , maxWidth:180 , flexGrow: 1}}>
+            <Paper sx={{p:1 , margin:'auto' , maxWidth:180 , flexGrow: 1}} className='bg2'>
                 <Grid container>
                     <Grid item xs={12}>
                         <img className={styles.img} alt="ProductPreview" src={props.img}></img> 
@@ -39,7 +40,7 @@ function ProductPreview(props:{img: string, header: string, price: number, id: s
                     </Grid>
                     <Grid item xs={12} container>
                         <Grid item xs>
-                            <Typography variant='subtitle2' align='left' className=' text-teal-300' noWrap>
+                            <Typography variant='subtitle2' align='left' color={lime[700]} noWrap>
                                 { "$" + addCommasToNumber(props.price)}
                             </Typography>
                         </Grid>

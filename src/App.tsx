@@ -20,22 +20,27 @@ const lightTheme = createTheme({
   },
 })
 
+const MyTheme = createTheme({
+  palette: {
+    background: {
+      default: '#fef9eb',
+    },
+  },
+});
+
 function App() {
 
   return (
     <>
-      <ThemeProvider theme={lightTheme}>
-        {/* <CsssBaseline/> */}
-        <BrowserRouter>
-          <Routes>
-            <Route path='' element={<PageTemplate/>}>
-              <Route path='/' element={<Home/>}></Route>
-              <Route path='/Product/:id' element={<Product/>}></Route>
-              <Route path='/login' element={<LogIn/>}></Route>
-            </Route>
-          </Routes>
-        </BrowserRouter>
-      </ThemeProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path='' element={<PageTemplate/>}>
+            <Route path='/' element={<Home/>}></Route>
+            <Route path='/Product/:id' element={<Product/>}></Route>
+            <Route path='/login' element={<LogIn/>}></Route>
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </>
   )
 }

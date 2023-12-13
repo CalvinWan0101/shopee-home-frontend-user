@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import './LogIn.scss'
-import TextField from '@mui/material/TextField'
-import Button from '@mui/material/Button'
-import { useNavigate } from 'react-router-dom'
+import './Color.scss'
+import {Button , Paper , TextField} from '@mui/material'
+import { useNavigate , Link } from 'react-router-dom'
 import ButtonGroup from '@mui/material/ButtonGroup'
 
 function LogIn() {
@@ -67,23 +67,21 @@ function LogIn() {
     }
 
     return (
-        <div style={{display:'flex', justifyContent:'center', alignItems:'center', height:'100%' }}>
-            <div id="login">
+        <div className=' flex items-center justify-center'>
+            <Paper className=' bg2 p-10 m-10'>
                 <div>
-                    <TextField sx={{m:'5px'}} id="LogInAcount" label="Account" variant="outlined" 
+                    <TextField id="LogInAcount" sx={{mb:2}} label="Account" variant="outlined" color='success' 
                         onChange={Event => setAccount(Event.target.value)} error={accountError} helperText={accountErrorText}
                         onKeyDown={(e) => HandleAccountPerssEnter(e)}/>
                     <div/>
-                    <TextField sx={{m:'5px'}} id="LogInPassword" label="Password" variant="outlined" 
+                    <TextField id="LogInPassword" sx={{mb:2}} label="Password" variant="outlined" color='success'
                         onChange={Event => setPassword(Event.target.value)} error={passwordError} helperText={passwordErrorText}
                         onKeyDown={(e) => HandlePasswordPressEnter(e)} type='password'/>
                     <div/>
-                    <ButtonGroup sx={{m:'5px'}} fullWidth={true} variant='contained' disableElevation={true}>
-                        <Button id='LogInBtn' onClick={HandleLogIn}>Log In</Button>
-                        <Button id='SignUpBtn'>Sign Up</Button>
-                    </ButtonGroup>
+                    <Button id='LogInBtn' sx={{textTransform:'none'}} fullWidth={true} variant='contained' color='success' onClick={HandleLogIn}>Login</Button>
+                    <Link to={'/'} className='float-right text-green-500 hover:text-green-700 hover:underline'>Sign up</Link>
                 </div>
-            </div>
+            </Paper>
         </div>
     )
 }

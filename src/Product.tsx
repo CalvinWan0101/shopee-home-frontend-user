@@ -1,8 +1,9 @@
 import React from 'react'
+import './Color.scss'
 import { useState } from 'react';
-import { Params, useParams } from 'react-router-dom'
+import { Params, useParams , Link } from 'react-router-dom'
 import ProductImg from './assets/testProductImg.jpg'
-import { Grid, Paper , Typography } from '@mui/material';
+import { Card, Grid, Paper , Typography , Chip , Avatar , ButtonBase} from '@mui/material';
 import AddShoppingCartTwoToneIcon from '@mui/icons-material/AddShoppingCartTwoTone';
 import ElectricRickshawTwoToneIcon from '@mui/icons-material/ElectricRickshawTwoTone';
 import { 
@@ -13,6 +14,7 @@ import {
     Rating,
     Button,
 } from "@material-tailwind/react";
+import { green, lime } from '@mui/material/colors';
 
 function Product() {
 
@@ -48,10 +50,10 @@ function Product() {
     
     return (
         <>
-            <Paper sx={{m: 10, p: 2}}>
+            <Paper sx={{m: 10, p: 2}} className='bg2'>
                 <Grid container spacing={2}>
                     <Grid item xs={5}>
-                        <Carousel loop className=' rounded-3xl h-fit border-white border-solid border-[5px]'>
+                        <Carousel loop className=' rounded-3xl h-fit dark-border'>
                             <img src={ProductImg} alt="image1" className=' h-full w-full object-cover'/>
                             <img src={ProductImg} alt="image2" className=' h-full w-full object-cover'/>
                             <img src={ProductImg} alt="image3" className=' h-full w-full object-cover'/>
@@ -65,25 +67,30 @@ function Product() {
                             <Typography variant='h5' sx={{mb:5}}>
                                 全新手機 M11ultra 安卓智能手機 6.1寸 inch 4G/5G手機 8 128G 雙卡雙模
                             </Typography>
-                            <Rating unratedColor='teal' ratedColor='teal' className=' mb-5'/>
-                            <Typography variant='h3' sx={{mb:3}} className=' text-teal-300'>
-                                $30
-                            </Typography>
+                            <Rating unratedColor='light-green' ratedColor='light-green' className=' mb-5'/>
+                            <div className=' p-2'>
+                                <Typography variant='h4' color={'gray'} className=' line-through'>
+                                    $30
+                                </Typography>
+                                <Typography variant='h2' color={green[500]} className=''>
+                                    $29
+                                </Typography>
+                            </div>
                             <Grid container className=' mt-auto mb-1'>
                                 <Grid item xs={6} className=' pl-2 pr-1'>
-                                    <Button variant='outlined' color='teal' className='flex items-center w-full'>
-                                        <AddShoppingCartTwoToneIcon fontSize='large' className=' ml-auto'></AddShoppingCartTwoToneIcon>
-                                        <div className=' mr-auto text-xl'>
+                                    <Button color='light-green' className='flex items-center w-full'>
+                                        <AddShoppingCartTwoToneIcon fontSize='large' className=' ml-auto text-white'></AddShoppingCartTwoToneIcon>
+                                        <div className=' mr-auto text-xl text-white'>
                                             加入購物車
                                         </div>
                                     </Button>
                                 </Grid>
                                 <Grid item xs={6} className=' pl-1 pr-2'>
-                                    <Button color='teal' className=' flex items-center w-full'>
-                                        <ElectricRickshawTwoToneIcon fontSize='large' className=' ml-auto'></ElectricRickshawTwoToneIcon>
-                                        <div className=' mr-auto text-xl'>
+                                    <Button color='green' className=' flex items-center w-full'>
+                                        <ElectricRickshawTwoToneIcon fontSize='large' className=' ml-auto text-white'></ElectricRickshawTwoToneIcon>
+                                        <div className=' mr-auto text-xl text-white'>
                                             立即購買
-                                        </div>                                    
+                                        </div>
                                     </Button>
                                 </Grid>
                             </Grid>
@@ -91,14 +98,17 @@ function Product() {
                     </Grid>
                 </Grid>
             </Paper>
-            <Paper sx={{m: 10, p: 2}}>
-                
+            <Paper sx={{m: 10, p: 2}} className='bg2'>
+                <Link to={'/'}  className='flex text-center items-center'>
+                    <Avatar src={ProductImg}></Avatar>
+                    <span className=' flex-nowrap text-2xl ml-2'>我是賣家</span>
+                </Link>
             </Paper>
-            <Paper sx={{m: 10, p: 2}}>
+            <Paper sx={{m: 10, p: 2}} className='bg2'>
                 <Accordion  open={open === 1} icon={ <Icon id={1} open={open}/> }>
-                    <AccordionHeader onClick={() => handleOpen(1)} className=' text-white hover:text-blue-gray-300'>商品資訊</AccordionHeader>
+                    <AccordionHeader onClick={() => handleOpen(1)}>商品資訊</AccordionHeader>
                     <AccordionBody>
-                        <Typography variant='subtitle1' className=' whitespace-pre text-white'>
+                        <Typography variant='subtitle1' className=' whitespace-pre'>
                             {productInfo(50)}
                         </Typography>
                     </AccordionBody>
