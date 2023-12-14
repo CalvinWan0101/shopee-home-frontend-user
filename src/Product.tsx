@@ -52,7 +52,7 @@ function Product() {
         <>
             <Paper sx={{m: 10, p: 2}} className='bg2'>
                 <Grid container spacing={2}>
-                    <Grid item xs={5}>
+                    <Grid item xs={3.5}>
                         <Carousel loop className=' rounded-3xl h-fit dark-border'>
                             <img src={ProductImg} alt="image1" className=' h-full w-full object-cover'/>
                             <img src={ProductImg} alt="image2" className=' h-full w-full object-cover'/>
@@ -62,12 +62,12 @@ function Product() {
                             <img src={ProductImg} alt="image6" className=' h-full w-full object-cover'/>
                         </Carousel>
                     </Grid>
-                    <Grid item xs={7}>
+                    <Grid item xs={8.5}>
                         <div className=' px-10 h-full flex flex-col'>
-                            <Typography variant='h5' sx={{mb:5}}>
+                            <Typography variant='h5' sx={{mb:2}}>
                                 全新手機 M11ultra 安卓智能手機 6.1寸 inch 4G/5G手機 8 128G 雙卡雙模
                             </Typography>
-                            <Rating unratedColor='light-green' ratedColor='light-green' className=' mb-5'/>
+                            <Rating unratedColor='light-green' ratedColor='light-green' className=' mb-1'/>
                             <div className=' p-2'>
                                 <Typography variant='h4' color={'gray'} className=' line-through'>
                                     $30
@@ -77,18 +77,18 @@ function Product() {
                                 </Typography>
                             </div>
                             <Grid container className=' mt-auto mb-1'>
-                                <Grid item xs={6} className=' pl-2 pr-1'>
+                                <Grid item xs={6} className=' pl-2 pr-2'>
                                     <Button color='light-green' className='flex items-center w-full'>
                                         <AddShoppingCartTwoToneIcon fontSize='large' className=' ml-auto text-white'></AddShoppingCartTwoToneIcon>
-                                        <div className=' mr-auto text-xl text-white'>
+                                        <div className=' ml-1 mr-auto text-xl text-white'>
                                             加入購物車
                                         </div>
                                     </Button>
                                 </Grid>
-                                <Grid item xs={6} className=' pl-1 pr-2'>
+                                <Grid item xs={6} className=' pl-2 pr-2'>
                                     <Button color='green' className=' flex items-center w-full'>
                                         <ElectricRickshawTwoToneIcon fontSize='large' className=' ml-auto text-white'></ElectricRickshawTwoToneIcon>
-                                        <div className=' mr-auto text-xl text-white'>
+                                        <div className=' ml-1 mr-auto text-xl text-white'>
                                             立即購買
                                         </div>
                                     </Button>
@@ -98,12 +98,14 @@ function Product() {
                     </Grid>
                 </Grid>
             </Paper>
+
             <Paper sx={{m: 10, p: 2}} className='bg2'>
                 <Link to={'/'}  className='flex text-center items-center'>
                     <Avatar src={ProductImg}></Avatar>
                     <span className=' flex-nowrap text-2xl ml-2'>我是賣家</span>
                 </Link>
             </Paper>
+            
             <Paper sx={{m: 10, p: 2}} className='bg2'>
                 <Accordion  open={open === 1} icon={ <Icon id={1} open={open}/> }>
                     <AccordionHeader onClick={() => handleOpen(1)}>商品資訊</AccordionHeader>

@@ -27,7 +27,7 @@ function ProductPreview(props:{img: string, header: string, price: number, id: s
         <>
         <ButtonBase>
             <Paper sx={{p:1 , margin:'auto' , maxWidth:180 , flexGrow: 1}} className='bg2'>
-                <Grid container>
+                <Grid container sx={{p:0.5}}>
                     <Grid item xs={12}>
                         <img className={styles.img} alt="ProductPreview" src={props.img}></img> 
                     </Grid>
@@ -40,7 +40,7 @@ function ProductPreview(props:{img: string, header: string, price: number, id: s
                     </Grid>
                     <Grid item xs={12} container>
                         <Grid item xs>
-                            <Typography variant='subtitle2' align='left' color={lime[700]} noWrap>
+                            <Typography variant='subtitle2' align='left' color={green[500]} noWrap>
                                 { "$" + addCommasToNumber(props.price)}
                             </Typography>
                         </Grid>
