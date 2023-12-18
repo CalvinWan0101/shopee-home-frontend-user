@@ -4,6 +4,7 @@ import './Color.scss'
 import {Button , Paper , TextField} from '@mui/material'
 import { useNavigate , Link } from 'react-router-dom'
 import ButtonGroup from '@mui/material/ButtonGroup'
+import {Login , useLoginStore} from './LoginState'
 
 function LogIn() {
     
@@ -16,6 +17,8 @@ function LogIn() {
     const [passwordErrorText, setPasswordErrorText] = useState<string>("")
 
     const navigate = useNavigate()
+
+    const {LoginState , setLoginState} = useLoginStore<Login>( (state) => state );
 
     function HandleLogIn(){
         let error : boolean = false
@@ -50,7 +53,7 @@ function LogIn() {
         if(error){
             return;
         }
-
+        setLoginState(true);
         navigate('/')
     }
 

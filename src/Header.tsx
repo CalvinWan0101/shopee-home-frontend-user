@@ -1,12 +1,14 @@
 import {useEffect , useState} from 'react'
+import React from 'react';
+import {Link, useLocation} from 'react-router-dom'
+
 import './Color.scss'
 import {Logo} from './img_src.json'
-import {Avatar , Chip , Divider , IconButton , InputBase , Paper , Icon} from '@mui/material';
-// import AppBar from '@mui/material/AppBar'
+import {Login , useLoginStore} from './LoginState'
+
+import {Avatar , Divider , IconButton , InputBase , Paper , Icon} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search'
-import {Link, useLocation} from 'react-router-dom'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import Img from './assets/testProductImg.jpg'
 
 
 function Header() {
@@ -24,6 +26,7 @@ function Header() {
         console.log(location.pathname)
     },[location])
 
+    const {LoginState , setLoginState} = useLoginStore<Login>( (state) => state) ;
 
     return (
         <header className=' h-20 p-3 flex items-center bg3'>
@@ -50,7 +53,7 @@ function Header() {
             </div>
             }
             <div id='accountArea' className=' h-full ml-auto p-1 box-border flex items-center'>
-                {!isLogIn && 
+                {!isLogIn && !LoginState &&
                 // <div id='notLogin' className=' h-full w-auto rounded-full p-1 box-border  hover:animate-pulse'>
                 //     <Link to={'login'} className=' h-full flex items-center'>
                 //         <Avatar></Avatar>

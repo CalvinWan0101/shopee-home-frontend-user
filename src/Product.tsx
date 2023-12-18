@@ -1,8 +1,14 @@
+//import react
 import React from 'react'
-import './Color.scss'
 import { useState } from 'react';
 import { Params, useParams , Link } from 'react-router-dom'
+
+//import other
 import ProductImg from './assets/testProductImg.jpg'
+import './Color.scss'
+import { Login , useLoginStore } from './LoginState'
+
+//import material UI
 import { Card, Grid, Paper , Typography , Chip , Avatar , ButtonBase} from '@mui/material';
 import AddShoppingCartTwoToneIcon from '@mui/icons-material/AddShoppingCartTwoTone';
 import ElectricRickshawTwoToneIcon from '@mui/icons-material/ElectricRickshawTwoTone';
@@ -32,6 +38,8 @@ function Product() {
     const [open, setOpen] = useState(0);
 
     const handleOpen = (value) => setOpen(open === value ? 0 : value);
+
+    const {LoginState , setLoginState} = useLoginStore<Login>( (state) => state );
 
     function Icon({ id, open }) {
         return (
