@@ -4,6 +4,7 @@ import PageTemplate from './PageTemplate'
 import LogIn from './LogIn'
 import Home from './Home'
 import Product from './Product'
+import Seller from './Seller'
 import { ThemeProvider, createTheme } from "@mui/material";
 import CssBaseline from '@mui/material/CssBaseline';
 import { MaterialTailwindTheme, ThemeProvider as ThemeProviderTailwind} from "@material-tailwind/react";
@@ -38,6 +39,7 @@ function App() {
             <Route path='/' element={<Home/>}></Route>
             <Route path='/Product/:id' element={<Product/>}></Route>
             <Route path='/login' element={<LogIn/>}></Route>
+            <Route path='/Seller' element={<Seller/>}></Route>
           </Route>
         </Routes>
       </BrowserRouter>
