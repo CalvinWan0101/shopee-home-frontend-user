@@ -1,12 +1,14 @@
 import './App.scss'
 import { BrowserRouter , Routes , Route } from 'react-router-dom'
-import PageTemplate from './PageTemplate'
 import LogIn from './LogIn'
 import Home from './Home'
 import Product from './Product'
 import { ThemeProvider, createTheme } from "@mui/material";
 import CssBaseline from '@mui/material/CssBaseline';
 import { MaterialTailwindTheme, ThemeProvider as ThemeProviderTailwind} from "@material-tailwind/react";
+import Header from './Header'
+import UserInformation from './UserInformation.tsx'
+import Shoppingcart from './Shoppingcart.tsx'
 
 const darkTheme = createTheme({
   palette: {
@@ -34,10 +36,12 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path='' element={<PageTemplate/>}>
+          <Route path='' element={<Header/>}>
             <Route path='/' element={<Home/>}></Route>
             <Route path='/Product/:id' element={<Product/>}></Route>
             <Route path='/login' element={<LogIn/>}></Route>
+            <Route path='/PersionalInformation' element={<UserInformation/>}></Route>
+            <Route path='/ShoppingCart' element={<Shoppingcart/>}></Route>
           </Route>
         </Routes>
       </BrowserRouter>

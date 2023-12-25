@@ -5,7 +5,7 @@ import { Params, useParams , Link } from 'react-router-dom'
 
 //import other
 import ProductImg from './assets/testProductImg.jpg'
-import './Color.scss'
+import '/src/css/Color.scss'
 import { Login , useLoginStore } from './LoginState'
 
 //import material UI
@@ -35,29 +35,10 @@ function Product() {
         return string;
     }
 
-    const [open, setOpen] = useState(0);
-
-    const handleOpen = (value) => setOpen(open === value ? 0 : value);
-
     const {LoginState , setLoginState} = useLoginStore<Login>( (state) => state );
-
-    function Icon({ id, open }) {
-        return (
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={2}
-                stroke="currentColor"
-                className={`${id === open ? "rotate-180" : ""} h-5 w-5 transition-transform`}
-            >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-            </svg>
-        );
-    }
     
-    return (
-        <>
+    function ProductArea(){
+        return(
             <Paper sx={{m: 10, p: 2}} className='bg2'>
                 <Grid container spacing={2}>
                     <Grid item xs={3.5}>
@@ -106,14 +87,42 @@ function Product() {
                     </Grid>
                 </Grid>
             </Paper>
+        )
+    }
 
+    function ShopArea(){
+        return(
             <Paper sx={{m: 10, p: 2}} className='bg2'>
                 <Link to={'/'}  className='flex text-center items-center'>
                     <Avatar src={ProductImg}></Avatar>
                     <span className=' flex-nowrap text-2xl ml-2'>我是賣家</span>
                 </Link>
             </Paper>
-            
+        )
+    }
+
+    function ProductInfoArea(){
+
+        const [open, setOpen] = useState(0);
+
+        const handleOpen = (value:number) => setOpen(open === value ? 0 : value);
+
+        function Icon(props:{ id:number, open:number }) {
+            return (
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                    stroke="currentColor"
+                    className={`${props.id === props.open ? "rotate-180" : ""} h-5 w-5 transition-transform`}
+                >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                </svg>
+            );
+        }
+
+        return(
             <Paper sx={{m: 10, p: 2}} className='bg2'>
                 <Accordion  open={open === 1} icon={ <Icon id={1} open={open}/> }>
                     <AccordionHeader onClick={() => handleOpen(1)}>商品資訊</AccordionHeader>
@@ -124,6 +133,14 @@ function Product() {
                     </AccordionBody>
                 </Accordion>
             </Paper>
+        )
+    }
+
+    return (
+        <>
+            <ProductArea/>
+            <ShopArea/>
+            <ProductInfoArea/>
         </>
     )
 }
