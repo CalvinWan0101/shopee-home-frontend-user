@@ -35,14 +35,14 @@
                 {
                     "productName":"阿巴阿八阿巴阿八阿巴阿阿八阿巴阿八阿巴阿阿八阿巴阿八阿巴阿阿八阿巴阿八阿巴阿八阿巴阿八阿巴阿八阿巴阿八",
                     "Img":"/src/assets/testProductImg.jpg",
-                    "price":43,
+                    "price":2,
                     "amount":2,
                     "checked":false
                 },
                 {
                     "productName":"阿阿阿八阿巴阿八阿巴阿阿八阿巴阿八阿巴阿八阿巴阿八阿巴阿八阿巴阿八",
                     "Img":"/src/assets/testProductImg.jpg",
-                    "price":43,
+                    "price":99,
                     "amount":1,
                     "checked":false
                 }

@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { useNavigate , Link } from 'react-router-dom'
+import axios from 'axios';
 
+import { baseURL } from "./APIconfig.ts"
 import '/src/css/Color.scss'
 import {Login , useLoginStore} from './LoginState'
 
@@ -40,21 +42,26 @@ function LogIn() {
             setPasswordError(false)
             setPasswordErrorText("")
         }
-
-        // TODO: back-end login
-
-        // if(account != 'test123' || password != '123123'){
-        //     setAccountError(true)
-        //     setAccountErrorText("帳號或密碼錯誤")
-        //     setPasswordError(true)
-        //     setPasswordErrorText("帳號或密碼錯誤")
-        //     error = true
-        // }
+        
         if(error){
             return;
         }
-        setLoginState(true);
-        navigate('/')
+
+        // TODO: back-end login
+        axios
+        .post(baseURL + "user/login", {
+            email:account,
+            password:password
+        })
+        .then((response) => {
+            console.log(response);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+
+        //setLoginState(true);
+        //navigate('/')
     }
 
     function HandleAccountPerssEnter(e: React.KeyboardEvent<HTMLDivElement>){

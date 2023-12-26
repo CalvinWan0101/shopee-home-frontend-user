@@ -8,7 +8,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { MaterialTailwindTheme, ThemeProvider as ThemeProviderTailwind} from "@material-tailwind/react";
 import Header from './Header'
 import UserInformation from './UserInformation.tsx'
-import Shoppingcart from './Shoppingcart.tsx'
+import Shoppingcart from './ShoppingcartPage/Shoppingcart.tsx'
 
 const darkTheme = createTheme({
   palette: {
