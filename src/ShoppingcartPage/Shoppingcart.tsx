@@ -21,10 +21,12 @@ function Shoppingcart() {
     function HandleDataChange(newShopData:Shop , ShopIndex:number){
         const newShopList = [...shopList]
         newShopList[ShopIndex] = newShopData
+        //無product時把shop一併刪除
         if (newShopList[ShopIndex].productList.length == 0){
             newShopList.splice(ShopIndex , 1)
             setChecked(Array.from({length:newShopList.length} , (_ , index) => newShopList[index].productList.reduce((accumulator, currentValue) => accumulator && currentValue.checked , true)))
         }
+        //當shop內有一個product有checked時，將其他shop設成false
         else if (newShopList[ShopIndex].productList.reduce((accumulator, currentValue) => accumulator || currentValue.checked , false)){
             for (let i = 0 ; i < newShopList.length ; i++){
                 if (i != ShopIndex){
@@ -32,9 +34,8 @@ function Shoppingcart() {
                 }
             }
         }
-        if (newShopList[ShopIndex].productList.reduce((accumulator, currentValue) => accumulator || currentValue.checked , false)){
-            setChecked(Array.from({length:newShopList.length} , (_ , index) => index == ShopIndex ? newShopList[ShopIndex].productList.reduce((accumulator, currentValue) => accumulator && currentValue.checked , true) : false))
-        }
+
+        setChecked(Array.from({length:newShopList.length} , (_ , index) => index == ShopIndex ? newShopList[ShopIndex].productList.reduce((accumulator, currentValue) => accumulator && currentValue.checked , true) : false))
         setShopList(newShopList)
     }
 

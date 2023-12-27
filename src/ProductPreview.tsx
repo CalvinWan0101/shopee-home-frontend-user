@@ -18,7 +18,7 @@ function ProductPreview(props:{img: string, header: string, price: number, id: s
         }
     }
 
-    function addCommasToNumber(number) {
+    function addCommasToNumber(number:number) {
         let numString = number.toString();
         numString = numString.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         return numString;
