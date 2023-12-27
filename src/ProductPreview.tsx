@@ -1,7 +1,7 @@
 import React from 'react'
 
 
-import { Grid , Typography , Paper , ButtonBase, getInputAdornmentUtilityClass } from '@mui/material';
+import { Grid , Typography , Paper , Card , CardActionArea } from '@mui/material';
 import { green , lime } from '@mui/material/colors';
 
 function ProductPreview(props:{img: string, header: string, price: number, id: string, sellCount: number}) {
@@ -26,8 +26,8 @@ function ProductPreview(props:{img: string, header: string, price: number, id: s
 
     return (
         <>
-            <ButtonBase>
-                <Paper sx={{p:1 , margin:'auto' , maxWidth:180 , flexGrow: 1}} className='bg2'>
+            <Card sx={{ margin:'auto' , maxWidth:180 , flexGrow: 1}} className='bg2' elevation={5}>
+                <CardActionArea sx={{p:1}}>
                     <Grid container sx={{p:0.5}}>
                         <Grid item xs={12}>
                             <img className=" rounded-md" alt="ProductPreview" src={props.img}></img> 
@@ -52,8 +52,8 @@ function ProductPreview(props:{img: string, header: string, price: number, id: s
                             </Grid>
                         </Grid>
                     </Grid>
-                </Paper>
-            </ButtonBase>
+                </CardActionArea>
+            </Card>
         </>
     )
 }

@@ -39,7 +39,7 @@ export function ShoppingcartShop(props: { checked: boolean; onClick: () => void;
             </div>
             <div>
                 {props.shopData.productList.map((product, productIndex) => (
-                    <div key={productIndex} className=' mb-2'>
+                    <div key={productIndex} className=' mb-4'>
                         <ShoppingcartProductCard onCheckChange={(checked) => { HandleProductCheckedChange(productIndex, checked); }}
                             amount={product.amount} onAmountChange={(newAmount) => HandleAmountChange(productIndex, newAmount)}
                             productData={product} />

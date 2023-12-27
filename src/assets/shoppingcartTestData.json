@@ -57,7 +57,7 @@
                     "Img":"/src/assets/testProductImg.jpg",
                     "price":43,
                     "amount":4,
-                    "checked":true
+                    "checked":false
                 }
             ]
         }

@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 
 import ProductImg from '/src/assets/testProductImg.jpg'
 import ShoppingcartData from '../assets/shoppingcartTestData.json'
-import './ShoppingcartInterface'
+import './ShoppingcartDataInterface.ts'
 import '@/css/Color.scss'
 import { ShoppingcartShop } from './ShoppingcartShop.tsx'
 
@@ -35,7 +35,6 @@ function Shoppingcart() {
         if (newShopList[ShopIndex].productList.reduce((accumulator, currentValue) => accumulator || currentValue.checked , false)){
             setChecked(Array.from({length:newShopList.length} , (_ , index) => index == ShopIndex ? newShopList[ShopIndex].productList.reduce((accumulator, currentValue) => accumulator && currentValue.checked , true) : false))
         }
-        console.log(checked)
         setShopList(newShopList)
     }
 

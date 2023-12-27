@@ -12,7 +12,7 @@ function Home() {
     return (
         <div className=' flex flex-wrap justify-evenly'>
             {data.map((item) => (
-                <div key={item.id} className=' mx-1.5 my-3 hover:animate-pulse'>
+                <div key={item.id} className=' mx-1.5 my-3 '>
                     <Link to={`/Product/${item.id}`}>
                         <ProductPreview img = {Pimg} header={"全新手機 M11ultra 安卓智能手機 6.1寸 inch 4G/5G手機 8 128G 雙卡雙模"} price={100000 * item.id} id={item.id.toString()} sellCount={111111}/>
                     </Link>

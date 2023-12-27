@@ -12,18 +12,18 @@ export function ShoppingcartProductCard(props: { onCheckChange: (checked: boolea
                 <Checkbox color='success' checked={props.productData.checked} onChange={(event) => props.onCheckChange(event.target.checked)} />
                 <img className=" rounded-md h-24 aspect-square" alt="ProductImg" src={props.productData.Img}></img>
                 <div>
-                    <div className="overflow-hidden m-1 text-xl">
+                    <div className="overflow-hidden m-1 ml-4 text-xl">
                         <p className="line-clamp-1">
                             {props.productData.productName}
                         </p>
                     </div>
                     <div className=' h-full flex items-center pb-5'>
-                        <IconButton onClick={() => props.onAmountChange(props.amount + 1)} color='success'>
-                            <AddIcon />
-                        </IconButton>
-                        <p>{props.amount}</p>
                         <IconButton onClick={() => props.onAmountChange((props.amount - 1 >= 0) ? props.amount - 1 : 0)} color='success'>
                             <RemoveIcon />
+                        </IconButton>
+                        <p>{props.amount}</p>
+                        <IconButton onClick={() => props.onAmountChange(props.amount + 1)} color='success'>
+                            <AddIcon />
                         </IconButton>
                         <Typography variant='h6' color={green[500]} className=''>{'$' + props.productData.price}</Typography>
                     </div>
