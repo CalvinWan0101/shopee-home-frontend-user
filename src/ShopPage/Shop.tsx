@@ -32,17 +32,22 @@ function Shop() {
                         <Avatar className=' border2' src={Img} size='xxl'></Avatar>
                     </div>
                 </div>
-                <div className=' p-5 flex items-center'>
-                    <Typography variant='h4'>{shopName}</Typography>
-                    <div className=' w-[2px] h-8 ml-5 mr-1 bg-gray-500'></div>
-                    <Typography variant='h6' color={'gray'}>{"商品數量 : " + shopProductCount}</Typography>
-                    <div className=' w-[2px] h-8 ml-5 mr-1 bg-gray-500'></div>
-                    <Typography variant='h6' color={'gray'}>{"平均評價 : " + shopAverage}</Typography>
+                <div className=' p-5 flex items-center flex-wrap'>
+                    <div className=' flex items-center'>
+                        <Typography variant='h4'>{shopName}</Typography>
+                    </div>
+                    <div className=' flex items-center whitespace-nowrap'>
+                        <div className=' w-[2px] h-8 ml-5 mr-1 bg-gray-500'></div>
+                        <Typography variant='h6' color={'gray'}>{"商品數量 : " + shopProductCount}</Typography>
+                        <div className=' w-[2px] h-8 ml-5 mr-1 bg-gray-500'></div>
+                        <Typography variant='h6' color={'gray'}>{"平均評價 : " + shopAverage}</Typography>
+                    </div>
                 </div>
                 <Tabs value="product" className=" bg1">
                     <TabsHeader className='bg3'>
                         <Tab value={"product"}>商品</Tab>
                         <Tab value={"Introduction"}>簡介</Tab>
+                        <Tab value={"Coupon"}>優惠券</Tab>
                     </TabsHeader>
                     <TabsBody>
                         <TabPanel value={"product"}>
@@ -56,8 +61,11 @@ function Shop() {
                                 ))}
                             </div>
                         </TabPanel>
-                        <TabPanel value={"Introduction"}>
-                            圖為示意圖，實際出貨為實際下單型號\n減緩衝擊，防止爆屏，精湛工術，有效增強耐用度\n 本商品為特價品,皆為非滿版\n圖為示意圖，實際出貨為實際下單型號\n減緩衝擊，防止爆屏，精湛工術，有效增強耐用度\n 本商品為特價品,皆為非滿版\n圖為示意圖，實際出貨為實際下單型號\n減緩衝擊，防止爆屏，精湛工術，有效增強耐用度\n 本商品為特價品,皆為非滿版\n圖為示意圖，實際出貨為實際下單型號\n減緩衝擊，防止爆屏，精湛工術，有效增強耐用度\n 本商品為特價品,皆為非滿版\n圖為示意圖，實際出貨為實際下單型號\n減緩衝擊，防止爆屏，精湛工術，有效增強耐用度\n 本商品為特價品,皆為非滿版\n圖為示意圖，實際出貨為實際下單型號\n減緩衝擊，防止爆屏，精湛工術，有效增強耐用度\n 本商品為特價品,皆為非滿版\n圖為示意圖，實際出貨為實際下單型號\n減緩衝擊，防止爆屏，精湛工術，有效增強耐用度\n 本商品為特價品,皆為非滿版\n
+                        <TabPanel value={"Introduction"} className='whitespace-pre'>
+                            {"圖為示意圖，實際出貨為實際下單型號\n減緩衝擊，防止爆屏，精湛工術，有效增強耐用度\n 本商品為特價品,皆為非滿版\n圖為示意圖，實際出貨為實際下單型號\n減緩衝擊，防止爆屏，精湛工術，有效增強耐用度\n 本商品為特價品,皆為非滿版\n圖為示意圖，實際出貨為實際下單型號\n減緩衝擊，防止爆屏，精湛工術，有效增強耐用度\n 本商品為特價品,皆為非滿版\n圖為示意圖，實際出貨為實際下單型號\n減緩衝擊，防止爆屏，精湛工術，有效增強耐用度\n 本商品為特價品,皆為非滿版\n圖為示意圖，實際出貨為實際下單型號\n減緩衝擊，防止爆屏，精湛工術，有效增強耐用度\n 本商品為特價品,皆為非滿版\n圖為示意圖，實際出貨為實際下單型號\n減緩衝擊，防止爆屏，精湛工術，有效增強耐用度\n 本商品為特價品,皆為非滿版\n圖為示意圖，實際出貨為實際下單型號\n減緩衝擊，防止爆屏，精湛工術，有效增強耐用度\n 本商品為特價品,皆為非滿版\n"}
+                        </TabPanel>
+                        <TabPanel value={"Coupon"}>
+                            <div></div>
                         </TabPanel>
                     </TabsBody>
                 </Tabs>

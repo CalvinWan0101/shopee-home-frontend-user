@@ -4,6 +4,7 @@ import LogIn from './LogIn'
 import Home from './Home'
 import Product from './Product'
 import Shop from './ShopPage/Shop.tsx'
+import Test from './test.tsx' //TODO: delete me
 import { ThemeProvider, createTheme } from "@mui/material";
 import CssBaseline from '@mui/material/CssBaseline';
 import { MaterialTailwindTheme, ThemeProvider as ThemeProviderTailwind} from "@material-tailwind/react";
@@ -45,6 +46,7 @@ function App() {
             <Route path='/PersionalInformation' element={<UserInformation/>}></Route>
             <Route path='/ShoppingCart' element={<Shoppingcart/>}></Route>
             <Route path='/Shop/:id' element={<Shop/>}></Route>
+            <Route path='/test' element={<Test/>}></Route>
           </Route>
         </Routes>
       </BrowserRouter>
