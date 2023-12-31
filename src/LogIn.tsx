@@ -55,7 +55,6 @@ function LogIn() {
         })
         .then((response) => {
             console.log(response);
-            navigate('/signin');
         })
         .catch((error) => {
             console.log(error);
@@ -72,7 +71,7 @@ function LogIn() {
     }
 
     function HandlePasswordPressEnter(e: React.KeyboardEvent<HTMLDivElement>){
-        if(e.key == "Enter"){ 
+        if(e.key == "Enter"){
             HandleLogIn()
         }
     }
@@ -90,7 +89,7 @@ function LogIn() {
                         onKeyDown={(e) => HandlePasswordPressEnter(e)} type='password'/>
                     <div/>
                     <Button id='LogInBtn' sx={{textTransform:'none'}} fullWidth={true} variant='contained' color='success' onClick={HandleLogIn}>Login</Button>
-                    <Link to={'/signup'} className='float-right text-green-500 hover:text-green-700 hover:underline'>Sign up</Link>
+                    <Link to={'/'} className='float-right text-green-500 hover:text-green-700 hover:underline'>Sign up</Link>
                 </div>
             </Paper>
         </div>

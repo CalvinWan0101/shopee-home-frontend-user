@@ -11,7 +11,6 @@ import { MaterialTailwindTheme, ThemeProvider as ThemeProviderTailwind} from "@m
 import Header from './Header'
 import UserInformation from './UserInformation.tsx'
 import Shoppingcart from './ShoppingcartPage/Shoppingcart.tsx'
-import SignUp from './SignUp.tsx'
 
 
 const darkTheme = createTheme({
@@ -44,7 +43,6 @@ function App() {
             <Route path='/' element={<Home/>}></Route>
             <Route path='/Product/:id' element={<Product/>}></Route>
             <Route path='/login' element={<LogIn/>}></Route>
-            <Route path='/signup' element={<SignUp/>}></Route>
             <Route path='/PersionalInformation' element={<UserInformation/>}></Route>
             <Route path='/ShoppingCart' element={<Shoppingcart/>}></Route>
             <Route path='/Shop/:id' element={<Shop/>}></Route>
