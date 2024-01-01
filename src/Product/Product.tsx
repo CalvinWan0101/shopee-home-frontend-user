@@ -1,12 +1,12 @@
 //import react
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react';
 import { Params, useParams , Link } from 'react-router-dom'
 
 //import other
-import ProductImg from './assets/testProductImg.jpg'
+import ProductImg from '@/assets/testProductImg.jpg'
 import '/src/css/Color.scss'
-import { Login , useLoginStore } from './LoginState'
+import { Login , useLoginStore } from '../LoginState'
 
 //import material UI
 import { Card, Grid, Paper , Typography , Chip , Avatar , IconButton} from '@mui/material';
@@ -23,51 +23,85 @@ import {
     Button,
 } from "@material-tailwind/react";
 import { amber, green, lime } from '@mui/material/colors';
+import axios from 'axios';
+import { baseURL } from '../APIconfig';
+import { error } from 'console';
 
 function Product() {
 
     const {id} = useParams(); // 取得產品ID
 
-    const [count , setCount] = useState(0)
-    const [productAmount , setProductAmount] = useState(10);
+    const [name , setName] = useState("")
+    const [amount , setAmount] = useState(0)
+    const [sales , setSales] = useState(0)
+    const [price , setPrice] = useState(1000000)
+    const [description , setDescription] = useState("")
+    const [discountRate , setDiscountRate] = useState<number | null>(1)
+    const [discountDate , setDiscountDate] = useState<Date | null>()
+    const [shopid , setShopid] = useState("")
+    const [image , setImage] = useState<string[]>([])
+    const [deleted , setDeleted] = useState(false)
 
-    function productInfo(time:number){
-        let string:string = '';
-        for(let i = 0 ; i < time ; i++){
-            string += "圖為示意圖，實際出貨為實際下單型號\n減緩衝擊，防止爆屏，精湛工術，有效增強耐用度\n 本商品為特價品,皆為非滿版\n";
-        }
-        console.log(id);
-        return string;
-    }
+    const [shopImage , setShopImage] = useState("")
+    const [shopName , setShopName] = useState("")
+
+    useEffect(() => {
+        axios
+        .get<ProductDetail>(baseURL + "product/" + id)
+        .then((response) => {
+            console.log(response.data)
+            setName(response.data.name)
+            setAmount(response.data.amount)
+            setSales(response.data.sales)
+            setPrice(response.data.price)
+            setDescription(response.data.description)
+            setDiscountRate(response.data.discountRate)
+            setDiscountDate(response.data.discountDate)
+            setShopid(response.data.shopId)
+            setImage(response.data.images)
+            setDeleted(response.data.deleted)
+    
+            // 在第一個請求完成後，發送第二個請求
+            return axios.get<Shop>(baseURL + 'shop/' + response.data.shopId);
+        })
+        .then((response) => {
+            setShopImage(response.data.avatar)
+            setShopName(response.data.name)
+        })
+        .catch((error) => {
+            console.log(error)
+        });
+    } , [])
 
     const {LoginState , setLoginState} = useLoginStore<Login>( (state) => state );
     
     function ProductArea(){
+
+        const [count , setCount] = useState(0)
+
         return(
             <Paper sx={{my:4, p: 2}} className='bg2' elevation={5}>
                 <Grid container spacing={2}>
                     <Grid item width={400}>
                         <Carousel loop className=' rounded-3xl h-fit dark-border'>
-                            <img src={ProductImg} alt="image1" className=' h-full w-full object-cover'/>
-                            <img src={ProductImg} alt="image2" className=' h-full w-full object-cover'/>
-                            <img src={ProductImg} alt="image3" className=' h-full w-full object-cover'/>
-                            <img src={ProductImg} alt="image4" className=' h-full w-full object-cover'/>
-                            <img src={ProductImg} alt="image5" className=' h-full w-full object-cover'/>
-                            <img src={ProductImg} alt="image6" className=' h-full w-full object-cover'/>
+                            {image.map((items , index) => (
+                                <img src={ProductImg} alt={'image' + index} key={index} className=' h-full w-full object-cover'/>
+                            ))}{/*TODO:addImage*/}
                         </Carousel>
                     </Grid>
                     <Grid item xs minWidth={400}>
                         <div className=' px-5 h-full flex flex-col'>
                             <Typography variant='h5' sx={{mb:2}}>
-                                全新手機 M11ultra 安卓智能手機 6.1寸 inch 4G/5G手機 8 128G 雙卡雙模
+                                {name}
                             </Typography>
                             {/* <Rating unratedColor='light-green' ratedColor='light-green' className=' mb-1'/> */}
                             <div className=''>
+                                {(discountRate == null ? false : true) && 
                                 <Typography variant='h4' color={'gray'} className=' line-through'>
-                                    $30
-                                </Typography>
+                                    {'$' + price}
+                                </Typography>}
                                 <Typography variant='h2' color={green[500]} className=''>
-                                    $29
+                                    {'$' + parseInt(`${price * (discountRate == null ? 1 : discountRate)}`)}
                                 </Typography>
                             </div>
                             <div className=' flex items-center mt-auto mb-3'>
@@ -75,10 +109,10 @@ function Product() {
                                     <RemoveIcon sx={{height: 38 , width: 38}} />
                                 </IconButton>
                                 <Typography variant='h5'>{count}</Typography>
-                                <IconButton size='large' onClick={() => setCount((count + 1 > productAmount ? count : count + 1))} color='success'>
+                                <IconButton size='large' onClick={() => setCount((count + 1 > amount ? count : count + 1))} color='success'>
                                     <AddIcon sx={{height: 38 , width: 38}}/>
                                 </IconButton>
-                                <Typography variant='h5' color={'gray'}>{"商品庫存 : " + productAmount}</Typography>
+                                <Typography variant='h5' color={'gray'}>{"商品庫存 : " + amount}</Typography>
                             </div>
                             <Grid container className=' mb-1'>
                                 <Grid item xs={6} className=' pl-2 pr-2'>
@@ -108,9 +142,9 @@ function Product() {
     function ShopArea(){
         return(
             <Paper sx={{my:4, p: 2}} className='bg2'  elevation={5}>
-                <Link to={'/Shop/1'}  className='flex text-center items-center'>
-                    <Avatar src={ProductImg}></Avatar>
-                    <span className=' flex-nowrap text-2xl ml-2'>我是賣家</span>
+                <Link to={'/Shop/' + shopid}  className='flex text-center items-center'>
+                    <Avatar src={shopImage}></Avatar>
+                    <span className=' flex-nowrap text-2xl ml-2'>{shopName}</span>
                 </Link>
             </Paper>
         )
@@ -143,7 +177,7 @@ function Product() {
                     <AccordionHeader onClick={() => handleOpen(1)}>商品資訊</AccordionHeader>
                     <AccordionBody>
                         <Typography variant='subtitle1' className=' whitespace-pre'>
-                            {productInfo(50)}
+                            {description}
                         </Typography>
                     </AccordionBody>
                 </Accordion>

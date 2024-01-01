@@ -1,4 +1,4 @@
-interface Product {
+interface ProductInShoppingcart {
     productName: string;
     Img: string;
     price: number;
@@ -6,13 +6,13 @@ interface Product {
     checked:boolean;
 }
 
-interface Shop {
+interface ShopInShoppingcart {
     shopName: string;
     shopId: string;
-    productList: Product[];
+    productList: ProductInShoppingcart[];
 }
 
-interface UserData {
+interface UsersShoppingcart {
     userId: string;
-    ShopList: Shop[];
+    ShopList: ShopInShoppingcart[];
 }

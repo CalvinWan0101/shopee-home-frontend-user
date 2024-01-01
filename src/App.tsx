@@ -2,7 +2,7 @@ import './App.scss'
 import { BrowserRouter , Routes , Route } from 'react-router-dom'
 import LogIn from './LogIn'
 import Home from './Home'
-import Product from './Product'
+import Product from './Product/Product.tsx'
 import Shop from './ShopPage/Shop.tsx'
 import Test from './test.tsx' //TODO: delete me
 import { ThemeProvider, createTheme } from "@mui/material";

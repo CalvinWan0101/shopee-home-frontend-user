@@ -18,7 +18,7 @@ function Shoppingcart() {
     const [shopList , setShopList] = useState(ShoppingcartData.ShopList);
     const [checked , setChecked] = useState(Array.from({length:ShoppingcartData.ShopList.length} , (_ , index) => ShoppingcartData.ShopList[index].productList.reduce((accumulator, currentValue) => accumulator && currentValue.checked , true)))
 
-    function HandleDataChange(newShopData:Shop , ShopIndex:number){
+    function HandleDataChange(newShopData:ShopInShoppingcart , ShopIndex:number){
         const newShopList = [...shopList]
         newShopList[ShopIndex] = newShopData
         //無product時把shop一併刪除

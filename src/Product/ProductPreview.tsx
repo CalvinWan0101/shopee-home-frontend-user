@@ -1,10 +1,32 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 
 import { Grid , Typography , Paper , Card , CardActionArea } from '@mui/material';
 import { green , lime } from '@mui/material/colors';
+import axios from 'axios';
+import { baseURL } from '../APIconfig';
+import { error } from 'console';
 
-function ProductPreview(props:{img: string, header: string, price: number, id: string, sellCount: number}) {
+function ProductPreview(props:{id: string}) {
+
+    const [name , setName] = useState("")
+    const [price , setPrice] = useState(100000)
+    const [sales , setSales] = useState(0)
+    const [image , setImage] = useState("")
+
+    useEffect(() => {
+        axios
+        .get<ProductPreview>(baseURL + 'product/preview/' + props.id)
+        .then((response) => {
+            setName(response.data.name)
+            setPrice(response.data.finalPrice)
+            setSales(response.data.sales)
+            setImage(response.data.image)
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+    } , [])
 
     function NumberToString(inputNumber : number){
         if (inputNumber >= 1000000){
@@ -30,24 +52,24 @@ function ProductPreview(props:{img: string, header: string, price: number, id: s
                 <CardActionArea sx={{p:1}}>
                     <Grid container sx={{p:0.5}}>
                         <Grid item xs={12}>
-                            <img className=" rounded-md" alt="ProductPreview" src={props.img}></img> 
+                            <img className=" rounded-md" alt="ProductPreview" src={image}></img> 
                         </Grid>
                         <Grid item sx={{height: "auto"}}>
                             <div className="overflow-hidden m-1">
                                 <p className="line-clamp-2">
-                                    {props.header}
+                                    {name}
                                 </p>
                             </div>
                         </Grid>
                         <Grid item xs={12} container>
                             <Grid item xs>
                                 <Typography variant='subtitle2' align='left' color={green[500]} noWrap>
-                                    { "$" + addCommasToNumber(props.price)}
+                                    { "$" + addCommasToNumber(price)}
                                 </Typography>
                             </Grid>
                             <Grid item xs>
                                 <Typography variant='subtitle2' align='right' color={"#A7A7A7"} noWrap>
-                                    {"已售出" + NumberToString(props.sellCount)}
+                                    {"已售出" + NumberToString(sales)}
                                 </Typography>
                             </Grid>
                         </Grid>

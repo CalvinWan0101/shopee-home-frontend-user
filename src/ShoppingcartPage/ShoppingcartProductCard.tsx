@@ -4,7 +4,7 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import { green } from '@mui/material/colors';
 
-export function ShoppingcartProductCard(props: { onCheckChange: (checked: boolean) => void; amount: number; onAmountChange: (newAmount: number) => void; productData: Product; }) {
+export function ShoppingcartProductCard(props: { onCheckChange: (checked: boolean) => void; amount: number; onAmountChange: (newAmount: number) => void; productData: ProductInShoppingcart; }) {
 
     return (
         <>

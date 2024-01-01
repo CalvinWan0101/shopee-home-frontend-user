@@ -5,6 +5,7 @@ import axios from 'axios';
 import { baseURL } from "./APIconfig.ts"
 import '/src/css/Color.scss'
 import {Login , useLoginStore} from './LoginState'
+import {User} from './UserInterface.ts'
 
 import {Button , Paper , TextField} from '@mui/material'
 
@@ -20,7 +21,7 @@ function LogIn() {
 
     const navigate = useNavigate()
 
-    const {LoginState , setLoginState} = useLoginStore<Login>( (state) => state );
+    const {LoginState , User , Login} = useLoginStore<Login>( (state) => state );
 
     function HandleLogIn(){
         let error : boolean = false
@@ -43,25 +44,31 @@ function LogIn() {
             setPasswordErrorText("")
         }
         
-        if(error){
+        if (error){
             return;
         }
 
         // TODO: back-end login
         axios
-        .post(baseURL + "user/login", {
+        .post<User>(baseURL + "user/login", {
             email:account,
             password:password
         })
         .then((response) => {
-            console.log(response);
+            setAccountError(false)
+            setAccountErrorText("")
+            setPasswordError(false)
+            setPasswordErrorText("")
+            Login(response.data)
+            navigate('/')
         })
         .catch((error) => {
             console.log(error);
+            setAccountError(true)
+            setAccountErrorText("帳號或密碼錯誤")
+            setPasswordError(true)
+            setPasswordErrorText("帳號或密碼錯誤")
         });
-
-        //setLoginState(true);
-        //navigate('/')
     }
 
     function HandleAccountPerssEnter(e: React.KeyboardEvent<HTMLDivElement>){

@@ -1,35 +1,76 @@
 import React, { useEffect, useState } from 'react'
 import { useParams , Link } from 'react-router-dom'
+import axios from 'axios'
 
 import Img from '@/assets/testProductImg.jpg'
 import defaultBackground from '@/assets/defaultBackground.jpg'
 import '@/css/Color.scss'
-import ProductPreview from '../ProductPreview.tsx'
+import ProductPreview from '../Product/ProductPreview.tsx'
+import './ShopInterface.ts'
+import '@/product/ProductInterface.ts'
 
-import { Avatar , Tab , Tabs , TabsHeader , TabsBody , TabPanel } from '@material-tailwind/react'
-import { Paper , Typography } from '@mui/material'
+import { Avatar , Tab , Tabs , TabsHeader , TabsBody , TabPanel , List , ListItem , ListItemPrefix , ListItemSuffix } from '@material-tailwind/react'
+import { Paper , Typography , Grid} from '@mui/material'
+import LocalActivityIcon from '@mui/icons-material/LocalActivity';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import { green } from '@mui/material/colors'
+import { baseURL } from '../APIconfig.ts'
+import { error } from 'console'
 
 function Shop() {
     const {id} = useParams()
 
-    const [shopName , setShopName] = useState("我是賣家")
-    const [shopProductCount , setShopProductCount] = useState(125)
-    const [shopAverage , setShopAverage] = useState(4.8)
-    
-    const data = Array.from({ length: 500 }, (_, index) => ({
+    const [shopName , setShopName] = useState("")
+    const [shopProductCount , setShopProductCount] = useState(0)
+    const [shopAverageRate , setShopAverageRate] = useState(0)
+    const [shopAvatar , setShopAvatar] = useState("")
+    const [shopBackground , setShopBackground] = useState("")
+    const [shopProduct , setShopProduct] = useState<ProductInList[]>([])
+    const [shopDescription , setShopDescription] = useState("")
+
+    useEffect(() => {
+        axios
+        .get<Shop>(baseURL + 'shop/' + id )
+        .then((response) => {
+            setShopName(response.data.name)
+            setShopProductCount(30) //TODO: setShopProductCount
+            setShopAverageRate(4.5) //TODO: add shopAverageRate
+            setShopAvatar(response.data.avatar)
+            setShopBackground(response.data.background)
+            setShopDescription(response.data.description)
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+    } , [])
+
+    useEffect(() => {
+        axios
+        .get<ProductInList[]>(baseURL + 'product/name/shop/' + id)
+        .then((response) => {
+            setShopProduct(response.data)
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+    } , [])
+
+    const coupon = Array.from({length: 100}, (_ , index) => ({
         id: index + 1,
-        text: `Element ${index + 1}`,
-    }));
+        text: `滿 ${(index+1) * 10}$ 免運費`,
+        has: (index % 5 == 0)? true : false ,
+        isUsed: (index % 4 == 0)?true : false
+    }))
 
     return (
         <div className=' flex justify-center'>
             <Paper sx={{minWidth:"1000px" , maxWidth:"1000px"}} className=' bg2 overflow-hidden' elevation={5}>
                 <div className=' relative'>
                     <div className=' absolute overflow-hidden w-full h-56'>
-                        <img src={defaultBackground} className=' object-cover object-left-top w-full h-full' alt="shop_background" />
+                        <img src={shopBackground} className=' object-cover object-left-top w-full h-full' alt="shop_background" />
                     </div>
                     <div className=' pl-5 pt-40'>
-                        <Avatar className=' border2' src={Img} size='xxl'></Avatar>
+                        <Avatar className=' border2' src={shopAvatar} alt='shopAvatar' size='xxl'></Avatar>
                     </div>
                 </div>
                 <div className=' p-5 flex items-center flex-wrap'>
@@ -40,7 +81,7 @@ function Shop() {
                         <div className=' w-[2px] h-8 ml-5 mr-1 bg-gray-500'></div>
                         <Typography variant='h6' color={'gray'}>{"商品數量 : " + shopProductCount}</Typography>
                         <div className=' w-[2px] h-8 ml-5 mr-1 bg-gray-500'></div>
-                        <Typography variant='h6' color={'gray'}>{"平均評價 : " + shopAverage}</Typography>
+                        <Typography variant='h6' color={'gray'}>{"平均評價 : " + shopAverageRate}</Typography>
                     </div>
                 </div>
                 <Tabs value="product" className=" bg1">
@@ -51,27 +92,76 @@ function Shop() {
                     </TabsHeader>
                     <TabsBody>
                         <TabPanel value={"product"}>
-                            <div className=' flex flex-wrap justify-evenly'>
-                                {data.map((item) => (
-                                    <div key={item.id} className=' mx-1.5 my-3 '>
-                                        <Link to={`/Product/${item.id}`}>
-                                            <ProductPreview img = {Img} header={"全新手機 M11ultra 安卓智能手機 6.1寸 inch 4G/5G手機 8 128G 雙卡雙模"} price={100000 * item.id} id={item.id.toString()} sellCount={111111}/>
-                                        </Link>
-                                    </div>
-                                ))}
-                            </div>
+                            <ShopProduct/>
                         </TabPanel>
                         <TabPanel value={"Introduction"} className='whitespace-pre'>
-                            {"圖為示意圖，實際出貨為實際下單型號\n減緩衝擊，防止爆屏，精湛工術，有效增強耐用度\n 本商品為特價品,皆為非滿版\n圖為示意圖，實際出貨為實際下單型號\n減緩衝擊，防止爆屏，精湛工術，有效增強耐用度\n 本商品為特價品,皆為非滿版\n圖為示意圖，實際出貨為實際下單型號\n減緩衝擊，防止爆屏，精湛工術，有效增強耐用度\n 本商品為特價品,皆為非滿版\n圖為示意圖，實際出貨為實際下單型號\n減緩衝擊，防止爆屏，精湛工術，有效增強耐用度\n 本商品為特價品,皆為非滿版\n圖為示意圖，實際出貨為實際下單型號\n減緩衝擊，防止爆屏，精湛工術，有效增強耐用度\n 本商品為特價品,皆為非滿版\n圖為示意圖，實際出貨為實際下單型號\n減緩衝擊，防止爆屏，精湛工術，有效增強耐用度\n 本商品為特價品,皆為非滿版\n圖為示意圖，實際出貨為實際下單型號\n減緩衝擊，防止爆屏，精湛工術，有效增強耐用度\n 本商品為特價品,皆為非滿版\n"}
+                            {shopDescription}
                         </TabPanel>
                         <TabPanel value={"Coupon"}>
-                            <div></div>
+                            <ShopCoupon/>
                         </TabPanel>
                     </TabsBody>
                 </Tabs>
             </Paper>
         </div>
     )
+
+    function ShopProduct(){
+        return(
+            <div className=' flex flex-wrap justify-evenly'>
+            {shopProduct.map((item) => (
+                <div key={item.id} className=' mx-1.5 my-3 '>
+                    <Link to={`/Product/${item.id}`}>
+                        <ProductPreview id={item.id.toString()}/>
+                    </Link>
+                </div>
+            ))}
+            </div>
+        )
+    }
+
+    function ShopCoupon(){
+        return(
+            <div>
+                <Grid container>
+                    <Grid item xs={6} p={2}>
+                        <Typography variant='h5' color={'green'}>免運券</Typography>
+                        <List>
+                            {coupon.map((item , index) => (
+                                <ListItem disabled={item.isUsed} className=' bg2' key={index}
+                                style={(item.has && !item.isUsed) ? {color:"green"} : {}}>
+                                    <ListItemPrefix>
+                                        <LocalActivityIcon/>
+                                    </ListItemPrefix>
+                                    {item.text}
+                                    <ListItemSuffix>
+                                        {item.has && !item.isUsed && <CheckCircleOutlineIcon/>}
+                                    </ListItemSuffix>
+                                </ListItem>
+                            ))}
+                        </List>
+                    </Grid>
+                    <Grid item xs={6} p={2}>
+                        <Typography variant='h5' color={'green'}>折價券</Typography>
+                        <List>
+                            {coupon.map((item , index) => (
+                                <ListItem disabled={item.isUsed} className=' bg2' key={index}
+                                style={(item.has && !item.isUsed) ? {color:"green"} : {}}>
+                                    <ListItemPrefix>
+                                        <LocalActivityIcon/>
+                                    </ListItemPrefix>
+                                    {item.text}
+                                    <ListItemSuffix>
+                                        {item.has && !item.isUsed && <CheckCircleOutlineIcon/>}
+                                    </ListItemSuffix>
+                                </ListItem>
+                            ))}
+                        </List>
+                    </Grid>
+                </Grid>
+            </div>
+        )
+    }
 }
 
 export default Shop

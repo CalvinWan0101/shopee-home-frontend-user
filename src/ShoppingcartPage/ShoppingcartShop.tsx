@@ -3,7 +3,7 @@ import { ShoppingcartProductCard } from './ShoppingcartProductCard.tsx';
 import { Checkbox, Typography } from '@mui/material';
 import { green } from '@mui/material/colors';
 
-export function ShoppingcartShop(props: { checked: boolean; onClick: () => void; shopData: Shop; onDataChange: (ShopData: Shop) => void; }) {
+export function ShoppingcartShop(props: { checked: boolean; onClick: () => void; shopData: ShopInShoppingcart; onDataChange: (ShopData: ShopInShoppingcart) => void; }) {
 
     function HandleAmountChange(productIndex: number, amount: number) {
         const newShopData = props.shopData;
