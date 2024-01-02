@@ -52,7 +52,9 @@ function ProductPreview(props:{id: string}) {
                 <CardActionArea sx={{p:1}}>
                     <Grid container sx={{p:0.5}}>
                         <Grid item xs={12}>
-                            <img className=" rounded-md" alt="ProductPreview" src={image}></img> 
+                            <div className=' rounded-md relative w-full h-40 overflow-hidden'>
+                                <img className=" rounded-md w-full h-full object-contain" alt="ProductPreview" src={image}></img>
+                            </div>
                         </Grid>
                         <Grid item sx={{height: "auto"}}>
                             <div className="overflow-hidden m-1">

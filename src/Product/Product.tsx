@@ -49,7 +49,6 @@ function Product() {
         axios
         .get<ProductDetail>(baseURL + "product/" + id)
         .then((response) => {
-            console.log(response.data)
             setName(response.data.name)
             setAmount(response.data.amount)
             setSales(response.data.sales)
@@ -83,10 +82,10 @@ function Product() {
             <Paper sx={{my:4, p: 2}} className='bg2' elevation={5}>
                 <Grid container spacing={2}>
                     <Grid item width={400}>
-                        <Carousel loop className=' rounded-3xl h-fit dark-border'>
+                        <Carousel loop className=' rounded-3xl h-96 w-96 dark-border'>
                             {image.map((items , index) => (
-                                <img src={ProductImg} alt={'image' + index} key={index} className=' h-full w-full object-cover'/>
-                            ))}{/*TODO:addImage*/}
+                                <img src={items} alt={'image' + index} key={index} className=' h-full w-full object-contain'/>
+                            ))}
                         </Carousel>
                     </Grid>
                     <Grid item xs minWidth={400}>
