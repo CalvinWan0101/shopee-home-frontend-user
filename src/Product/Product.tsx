@@ -22,10 +22,9 @@ import {
     Rating,
     Button,
 } from "@material-tailwind/react";
-import { amber, green, lime } from '@mui/material/colors';
+import { green } from '@mui/material/colors';
 import axios from 'axios';
 import { baseURL } from '../APIconfig';
-import { error } from 'console';
 
 function Product() {
 
@@ -60,7 +59,7 @@ function Product() {
             setImage(response.data.images)
             setDeleted(response.data.deleted)
     
-            // 在第一個請求完成後，發送第二個請求
+            // promise 鍊
             return axios.get<Shop>(baseURL + 'shop/' + response.data.shopId);
         })
         .then((response) => {
@@ -76,7 +75,7 @@ function Product() {
     
     function ProductArea(){
 
-        const [count , setCount] = useState(0)
+        const [count , setCount] = useState(1)
 
         return(
             <Paper sx={{my:4, p: 2}} className='bg2' elevation={5}>
@@ -84,7 +83,7 @@ function Product() {
                     <Grid item width={400}>
                         <Carousel loop className=' rounded-3xl h-96 w-96 dark-border'>
                             {image.map((items , index) => (
-                                <img src={items} alt={'image' + index} key={index} className=' h-full w-full object-contain'/>
+                                <img src={items} alt={'image' + index} key={index} className=' h-full w-full object-cover'/>
                             ))}
                         </Carousel>
                     </Grid>
@@ -104,7 +103,7 @@ function Product() {
                                 </Typography>
                             </div>
                             <div className=' flex items-center mt-auto mb-3'>
-                                <IconButton size='large' onClick={() => setCount((count - 1 < 0 ? 0 : count - 1))} color='success'>
+                                <IconButton size='large' onClick={() => setCount((count - 1 < 1 ? 1 : count - 1))} color='success'>
                                     <RemoveIcon sx={{height: 38 , width: 38}} />
                                 </IconButton>
                                 <Typography variant='h5'>{count}</Typography>

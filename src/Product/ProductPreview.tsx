@@ -53,7 +53,7 @@ function ProductPreview(props:{id: string}) {
                     <Grid container sx={{p:0.5}}>
                         <Grid item xs={12}>
                             <div className=' rounded-md relative w-full h-40 overflow-hidden'>
-                                <img className=" rounded-md w-full h-full object-contain" alt="ProductPreview" src={image}></img>
+                                <img className=" rounded-md w-full h-full object-cover" alt="ProductPreview" src={image}></img>
                             </div>
                         </Grid>
                         <Grid item sx={{height: "auto"}}>
