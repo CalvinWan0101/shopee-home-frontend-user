@@ -9,19 +9,12 @@ import '/src/css/Color.scss'
 import { Login , useLoginStore } from '../LoginState'
 
 //import material UI
-import { Card, Grid, Paper , Typography , Chip , Avatar , IconButton} from '@mui/material';
+import { Card, Grid, Paper , Typography , Chip , Avatar , IconButton , Snackbar , MuiAlert, Alert} from '@mui/material';
 import AddShoppingCartTwoToneIcon from '@mui/icons-material/AddShoppingCartTwoTone';
 import ElectricRickshawTwoToneIcon from '@mui/icons-material/ElectricRickshawTwoTone';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
-import { 
-    Carousel,
-    Accordion,
-    AccordionHeader,
-    AccordionBody,
-    Rating,
-    Button,
-} from "@material-tailwind/react";
+import { Carousel, Accordion, AccordionHeader, AccordionBody, Rating, Button} from "@material-tailwind/react";
 import { green } from '@mui/material/colors';
 import axios from 'axios';
 import { baseURL } from '../APIconfig';
@@ -43,6 +36,8 @@ function Product() {
 
     const [shopImage , setShopImage] = useState("")
     const [shopName , setShopName] = useState("")
+
+    const [addShoppingcartSuccess , setAddShoppingcartSuccess] = useState(false)
 
     useEffect(() => {
         axios
@@ -114,7 +109,7 @@ function Product() {
                             </div>
                             <Grid container className=' mb-1'>
                                 <Grid item xs={6} className=' pl-2 pr-2'>
-                                    <Button color='light-green' className='flex items-center w-full'>
+                                    <Button color='light-green' className='flex items-center w-full' onClick={() => setAddShoppingcartSuccess(true)}>
                                         <AddShoppingCartTwoToneIcon fontSize='large' className=' ml-auto text-white'></AddShoppingCartTwoToneIcon>
                                         <div className=' ml-1 mr-auto text-xl text-white'>
                                             加入購物車
@@ -190,6 +185,11 @@ function Product() {
                 <ShopArea/>
                 <ProductInfoArea/>
             </div>
+            <Snackbar open={addShoppingcartSuccess} autoHideDuration={6000}>
+                <Alert severity='success' style={{backgroundColor:"#A7ECA9"}} onClose={() => setAddShoppingcartSuccess(false)}>
+                    成功加入購物車
+                </Alert>
+            </Snackbar>
         </>
     )
 }

@@ -35,7 +35,7 @@ function Shoppingcart() {
             }
         }
 
-        setChecked(Array.from({length:newShopList.length} , (_ , index) => index == ShopIndex ? newShopList[ShopIndex].productList.reduce((accumulator, currentValue) => accumulator && currentValue.checked , true) : false))
+        setChecked(Array.from({length:newShopList.length} , (_ , index) => newShopList[index].productList.reduce((accumulator, currentValue) => accumulator && currentValue.checked , true)))
         setShopList(newShopList)
     }
 

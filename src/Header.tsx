@@ -1,4 +1,4 @@
-import {useEffect , useState} from 'react'
+import {useEffect , useRef, useState} from 'react'
 import React from 'react';
 import {Link, useLocation , Outlet , useNavigate} from 'react-router-dom'
 
@@ -46,7 +46,8 @@ function Header() {
         else{
             setIsLogInPage(false)
         }
-        //console.log(location.pathname)
+        const autoScoll = document.getElementById('autoScoll') as HTMLElement 
+        autoScoll.scrollTop = 0;
     },[location])
 
     function AccountArea(){
@@ -166,7 +167,7 @@ function Header() {
     return (
         <>
             <AccountDrawer/>
-            <div className=' h-screen overflow-scroll'>
+            <div id='autoScoll' className=' h-screen overflow-scroll'>
                 <header className=' h-20 p-3 flex items-center bg3'>
                     <Logo/>
                     <CenterArea/>
