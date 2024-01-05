@@ -48,7 +48,6 @@ function LogIn() {
             return;
         }
 
-        // TODO: back-end login
         axios
         .post<User>(baseURL + "user/login", {
             email:account,

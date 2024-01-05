@@ -3,7 +3,7 @@ interface ProductInShoppingcart {
     Img: string;
     price: number;
     amount: number;
-    checked:boolean;
+    checked: boolean;
 }
 
 interface ShopInShoppingcart {

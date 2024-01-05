@@ -114,7 +114,7 @@ function Header() {
                             <Chip value="5" size="sm" color='light-green' className="rounded-full"/>
                         </ListItemSuffix>
                     </ListItem>
-                    <ListItem>
+                    <ListItem onClick={() => {closeDrawer(); navigate("/order/create");}}>
                         <ListItemPrefix>
                             <ReceiptLongIcon/>
                         </ListItemPrefix>
@@ -133,13 +133,22 @@ function Header() {
     }
 
     function CenterArea(){
+
+        const [keyword , setKeyword] = useState("")
+
+        function handleSearch(){
+            if (keyword != ""){
+                navigate('/search/' + keyword)
+            }
+        }
+
         return(
             <div className=' h-full w-3/6 p-1 ml-5 box-border'>
                 {!isLogInPage &&
                 <Paper component='form' className='bg1' sx={{p: '2px 4px', ml:'10px', display: 'flex', alignItems: 'center', width: "100%", height: "95%"}}>
-                    <InputBase sx={{ ml: 1, flex: 1 }} placeholder="搜尋產品或賣家"/>                    
+                    <InputBase sx={{ ml: 1, flex: 1 }} placeholder="搜尋產品或賣家" onKeyDown={(Event) => {if(Event.key === "Enter"){handleSearch()}}} onChange={(event) => setKeyword(event.target.value)}/>                    
                     <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-                    <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
+                    <IconButton type="button" sx={{ p: '10px' }} aria-label="search" onClick={handleSearch}>
                         <SearchIcon />
                     </IconButton>
                 </Paper>
@@ -167,7 +176,7 @@ function Header() {
     return (
         <>
             <AccountDrawer/>
-            <div id='autoScoll' className=' h-screen overflow-scroll'>
+            <div id='autoScoll' className=' h-screen overflow-y-scroll'>
                 <header className=' h-20 p-3 flex items-center bg3'>
                     <Logo/>
                     <CenterArea/>

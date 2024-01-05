@@ -4,6 +4,6 @@ export interface User{
     name:string;
     phoneNumber:string;
     avatar:string;
-    address:string[];
+    addresses:string[];
     deleted:boolean;
 }

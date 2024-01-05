@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import ProductPreview from './Product/ProductPreview'
+import ProductPreview from './ProductPage/ProductPreview'
 import {DefultProduct} from './img_src.json'
 import Pimg from './assets/testProductImg.jpg'
 import {Link} from 'react-router-dom'
@@ -24,7 +24,7 @@ function Home() {
 
     return (
         <div className=' flex flex-wrap justify-evenly'>
-            {productList.map((item , index) => (
+            {productList.map((item) => (
                 <div key={item.id} className=' mx-1.5 my-3 '>
                     <Link to={`/Product/${item.id}`}>
                         <ProductPreview id={item.id}/>

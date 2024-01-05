@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios, { AxiosDefaults, AxiosResponse } from 'axios';
-import "./Product/ProductInterface.ts";
+import "./ProductPage/ProductInterface.ts";
 import img1 from './assets/defaultAccount.jpg'
 import img2 from './assets/defaultBackground.jpg'
 import img3 from './assets/testProductImg.jpg'

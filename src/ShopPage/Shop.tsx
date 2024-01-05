@@ -2,20 +2,16 @@ import React, { useEffect, useState } from 'react'
 import { useParams , Link } from 'react-router-dom'
 import axios from 'axios'
 
-import Img from '@/assets/testProductImg.jpg'
-import defaultBackground from '@/assets/defaultBackground.jpg'
 import '@/css/Color.scss'
-import ProductPreview from '../Product/ProductPreview.tsx'
+import ProductPreview from '../ProductPage/ProductPreview.tsx'
 import './ShopInterface.ts'
-import '@/product/ProductInterface.ts'
+import '@/ProductPage/ProductInterface.ts'
 
 import { Avatar , Tab , Tabs , TabsHeader , TabsBody , TabPanel , List , ListItem , ListItemPrefix , ListItemSuffix } from '@material-tailwind/react'
 import { Paper , Typography , Grid} from '@mui/material'
 import LocalActivityIcon from '@mui/icons-material/LocalActivity';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import { green } from '@mui/material/colors'
 import { baseURL } from '../APIconfig.ts'
-import { error } from 'console'
 
 function Shop() {
     const {id} = useParams()
@@ -33,8 +29,7 @@ function Shop() {
         .get<Shop>(baseURL + 'shop/' + id )
         .then((response) => {
             setShopName(response.data.name)
-            setShopProductCount(30) //TODO: setShopProductCount
-            setShopAverageRate(4.5) //TODO: add shopAverageRate
+            setShopAverageRate(4.5) //TODO add shopAverageRate
             setShopAvatar(response.data.avatar)
             setShopBackground(response.data.background)
             setShopDescription(response.data.description)
@@ -49,6 +44,7 @@ function Shop() {
         .get<ProductInList[]>(baseURL + 'product/name/shop/' + id)
         .then((response) => {
             setShopProduct(response.data)
+            setShopProductCount(response.data.length)
         })
         .catch((error) => {
             console.log(error)
@@ -94,8 +90,10 @@ function Shop() {
                         <TabPanel value={"product"}>
                             <ShopProduct/>
                         </TabPanel>
-                        <TabPanel value={"Introduction"} className='whitespace-pre'>
-                            {shopDescription}
+                        <TabPanel value={"Introduction"}>
+                            <Typography variant='body1' className=' whitespace-break-spaces'>
+                                {shopDescription}
+                            </Typography>
                         </TabPanel>
                         <TabPanel value={"Coupon"}>
                             <ShopCoupon/>

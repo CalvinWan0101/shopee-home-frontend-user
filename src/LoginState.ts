@@ -14,7 +14,7 @@ const EmptyUser:User ={
     name : "",
     phoneNumber : "",
     avatar : "",
-    address:[],
+    addresses:[],
     deleted:false,
 }
 

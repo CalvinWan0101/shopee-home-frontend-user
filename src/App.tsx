@@ -2,7 +2,7 @@ import './App.scss'
 import { BrowserRouter , Routes , Route } from 'react-router-dom'
 import LogIn from './LogIn'
 import Home from './Home'
-import Product from './Product/Product.tsx'
+import Product from './ProductPage/Product.tsx'
 import Shop from './ShopPage/Shop.tsx'
 import Test from './test.tsx' //TODO: delete me
 import { ThemeProvider, createTheme } from "@mui/material";
@@ -11,6 +11,8 @@ import { MaterialTailwindTheme, ThemeProvider as ThemeProviderTailwind} from "@m
 import Header from './Header'
 import UserInformation from './UserInformation.tsx'
 import Shoppingcart from './ShoppingcartPage/Shoppingcart.tsx'
+import OrderCreate from './OrderPage/OrderCreate.tsx'
+import Search from './Search.tsx'
 
 
 const darkTheme = createTheme({
@@ -41,12 +43,14 @@ function App() {
         <Routes>
           <Route path='' element={<Header/>}>
             <Route path='/' element={<Home/>}></Route>
+            <Route path='/search/:keyword' element={<Search/>}></Route>
             <Route path='/Product/:id' element={<Product/>}></Route>
             <Route path='/login' element={<LogIn/>}></Route>
             <Route path='/PersionalInformation' element={<UserInformation/>}></Route>
             <Route path='/ShoppingCart' element={<Shoppingcart/>}></Route>
             <Route path='/Shop/:id' element={<Shop/>}></Route>
             <Route path='/test' element={<Test/>}></Route>
+            <Route path='/order/create' element={<OrderCreate/>}></Route>
           </Route>
         </Routes>
       </BrowserRouter>

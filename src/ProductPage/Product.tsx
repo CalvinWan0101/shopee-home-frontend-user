@@ -169,7 +169,7 @@ function Product() {
                 <Accordion  open={open === 1} icon={ <Icon id={1} open={open}/> }>
                     <AccordionHeader onClick={() => handleOpen(1)}>商品資訊</AccordionHeader>
                     <AccordionBody>
-                        <Typography variant='subtitle1' className=' whitespace-pre'>
+                        <Typography variant='subtitle1' className=' whitespace-break-spaces'>
                             {description}
                         </Typography>
                     </AccordionBody>
