@@ -146,7 +146,7 @@ function Header() {
             <div className=' h-full w-3/6 p-1 ml-5 box-border'>
                 {!isLogInPage &&
                 <Paper component='form' className='bg1' sx={{p: '2px 4px', ml:'10px', display: 'flex', alignItems: 'center', width: "100%", height: "95%"}}>
-                    <InputBase sx={{ ml: 1, flex: 1 }} placeholder="搜尋產品或賣家" onKeyDown={(Event) => {if(Event.key === "Enter"){handleSearch()}}} onChange={(event) => setKeyword(event.target.value)}/>                    
+                    <InputBase sx={{ ml: 1, flex: 1 }} placeholder="搜尋產品" onKeyDown={(Event) => {if(Event.key === "Enter"){handleSearch()}}} onChange={(event) => setKeyword(event.target.value)}/>                    
                     <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
                     <IconButton type="button" sx={{ p: '10px' }} aria-label="search" onClick={handleSearch}>
                         <SearchIcon />

@@ -1,15 +1,16 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import '@/css/Color.scss'
-import Img from '@/assets/testProductImg.jpg'
+import Img from '@/assets/testProductImg.jpg' //TODO delete me
 import './StepperStyle.scss'
 import { Login , useLoginStore } from '../LoginState'
+import OrderProductCard from './OrderProductCard'
 
 import { Box, Paper , Step, StepLabel, Stepper, Typography , TextField , Grid} from '@mui/material'
 import { Button , List , ListItem , ListItemPrefix , ListItemSuffix } from '@material-tailwind/react'
 import {green, red} from '@mui/material/colors'
 import LocalActivityIcon from '@mui/icons-material/LocalActivity';
-import SwipeableViews from 'react-swipeable-views';
+import SwipeableViews from 'react-swipeable-views'
 
 function OrderCreate() {
     const steps = [
@@ -21,7 +22,10 @@ function OrderCreate() {
 
     const {User} = useLoginStore<Login>( (state) => state )
 
-    const [activeStep , setActiveStep] = useState(0)
+    const [activeStep , setActiveStep] = useState<number>(0)
+    useEffect(() => {
+        //setActiveStep(1)
+    } , [])
 
     const [address , setAddress] = useState("")
 
@@ -51,30 +55,30 @@ function OrderCreate() {
                 </Stepper>
                 <div className=' w-full flex justify-center pt-2'>
                     <div className=' w-5/6 items-center bg1 p-5 overflow-hidden relative'>
-                        <SwipeableViews index={activeStep}>
+                        <SwipeableViews disableLazyLoading index={activeStep}>
                             <div className=' p-3'>
-                                <div className=' mb-2'>
-                                    <ProductCard/>
+                                <div className=' mb-2'> {/*TODO product list*/}
+                                    <OrderProductCard/>
                                 </div>
                                 <div className=' mb-2'>
-                                    <ProductCard/>
+                                    <OrderProductCard/>
                                 </div>
                                 <div className=' mb-2'>
-                                    <ProductCard/>
+                                    <OrderProductCard/>
                                 </div>
                             </div>
                             <div className=' p-3'>
                                 <TextField id="address" sx={{width:'98%' , my:1}} label="Address" variant="outlined" color='success' 
                                     onChange={Event => setAddress(Event.target.value)} value={address}/>
                                 {User.addresses.map((value , index) => (
-                                        <Button key={index} color='green' className=' m-2' onClick={() => setAddress(value)}>{value}</Button>
+                                    <Button key={index} color='green' className=' m-2' onClick={() => setAddress(value)}>{value}</Button>
                                 ))}
                             </div>
                             <div>
-                                <CouponList/>
+                                <CouponList/> {/*TODO Coupon list*/}
                             </div>
                             <div>
-                                <TotalPriceArea/>
+                                <TotalPriceArea/> {/*TODO total price*/}
                             </div>
                         </SwipeableViews>
                     </div>
@@ -91,26 +95,7 @@ function OrderCreate() {
         </>
     )
 
-    function ProductCard(){
-        return(
-            <Paper className='bg2 flex p-1 items-center'>
-                <img className=" rounded-md h-24 aspect-square" alt="ProductImg" src={Img}></img>
-                <div className=' flex flex-col justify-between h-20 mx-4'>
-                    <div className="overflow-hidden text-xl">
-                        <p className="line-clamp-1">
-                            商品名稱
-                        </p>
-                    </div>
-                    <div className=' flex items-center'>
-                        <p className=' mr-3'>x30</p>
-                        <Typography variant='h6' color={green[500]} className=''>{'$30'}</Typography>
-                    </div>
-                </div>
-            </Paper>
-        )
-    }
-
-    function CouponList(){
+    function CouponList(){ //TODO Coupon ALL
         return(
             <Grid container>
                 <Grid item xs={6} p={2}>
@@ -152,7 +137,7 @@ function OrderCreate() {
                             </Typography>
                         </Grid>
                         <Grid item xs={priceArea}>
-                            <Typography variant='h5' color={'green'} pl={1}>
+                            <Typography variant='h5' color={'green'} pl={1}> {/*TODO price*/}
                                 $2700
                             </Typography>
                         </Grid>
@@ -172,7 +157,7 @@ function OrderCreate() {
                             </Typography>
                         </Grid>
                         <Grid item xs={priceArea}>
-                            <Typography variant='h5' color={red[900]}>
+                            <Typography variant='h5' color={red[900]}> {/*TODO coupon discount*/}
                                 -$60
                             </Typography>
                         </Grid>
@@ -183,7 +168,7 @@ function OrderCreate() {
                             </Typography>
                         </Grid>
                         <Grid item xs={priceArea}>
-                            <Typography variant='h5' color={'green'} pl={1}>
+                            <Typography variant='h5' color={'green'} pl={1}> {/*TODO total price*/}
                                 $2700
                             </Typography>
                         </Grid>
@@ -191,7 +176,7 @@ function OrderCreate() {
                 </div>
                 <div className=' flex justify-center w-full mt-20'>
                     <Button className=' w-3/5 animate-bounce' color='green'>
-                        <Typography variant='h1'>
+                        <Typography variant='h1'> {/*TODO Buy (create order)*/}
                             {'Buy'}
                         </Typography>
                     </Button>

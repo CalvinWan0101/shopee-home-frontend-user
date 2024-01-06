@@ -11,7 +11,6 @@ import {Typography} from '@mui/material'
 import { green } from '@mui/material/colors';
 import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
 import { Button } from '@material-tailwind/react'
-import { assert } from 'console'
 
 function Shoppingcart() {
 

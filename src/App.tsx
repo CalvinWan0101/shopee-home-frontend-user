@@ -13,6 +13,7 @@ import UserInformation from './UserInformation.tsx'
 import Shoppingcart from './ShoppingcartPage/Shoppingcart.tsx'
 import OrderCreate from './OrderPage/OrderCreate.tsx'
 import Search from './Search.tsx'
+import Order from './OrderPage/Order.tsx'
 
 
 const darkTheme = createTheme({
@@ -51,6 +52,7 @@ function App() {
             <Route path='/Shop/:id' element={<Shop/>}></Route>
             <Route path='/test' element={<Test/>}></Route>
             <Route path='/order/create' element={<OrderCreate/>}></Route>
+            <Route path='/order' element={<Order/>}></Route>
           </Route>
         </Routes>
       </BrowserRouter>
