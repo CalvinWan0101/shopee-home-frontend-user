@@ -7,13 +7,12 @@ import './StepperStyle.scss'
 import { Login , useLoginStore } from '../LoginState'
 import OrderProductCard from './OrderProductCard'
 import { baseURL } from '../APIconfig.ts'
-import { OrderCreate , useOrderCreateStore } from './OrderCreateStore.ts'
+import { IOrderCreate , useOrderCreateStore } from './OrderCreateStore.ts'
 
 import { Box, Paper , Step, StepLabel, Stepper, Typography , TextField , Grid} from '@mui/material'
 import { Button , List , ListItem , ListItemPrefix , ListItemSuffix } from '@material-tailwind/react'
 import {green, red} from '@mui/material/colors'
 import LocalActivityIcon from '@mui/icons-material/LocalActivity';
-import SwipeableViews from 'react-swipeable-views'
 
 function OrderCreate() {
     const steps = [
@@ -28,13 +27,13 @@ function OrderCreate() {
         shippingCouponList , setShippingCouponList ,
         seasoningCouponList , setSeasoningCouponList,
         price , setPrice,
-    } = useOrderCreateStore<OrderCreate>( (state) => state )
+    } = useOrderCreateStore<IOrderCreate>( (state) => state )
 
     const [activeStep , setActiveStep] = useState<number>(-1)
 
     const [shopId , setShopId] = useState("1013f7a0-0017-4c21-872f-c014914e6834")
 
-    setPrice(2755)
+    //setPrice(2755)
 
     useEffect(() => {
         setActiveStep(0)
@@ -82,7 +81,7 @@ function OrderCreate() {
                 </Stepper>
                 <div className=' w-full flex justify-center pt-2'>
                     <div className=' w-5/6 items-center bg1 p-5 overflow-hidden relative'>
-                        <SwipeableViews disableLazyLoading index={activeStep}>
+                            {activeStep === 0 &&
                             <div className=' p-3'>
                                 <div className=' mb-2'> {/*TODO product list*/}
                                     <OrderProductCard/>
@@ -93,21 +92,23 @@ function OrderCreate() {
                                 <div className=' mb-2'>
                                     <OrderProductCard/>
                                 </div>
-                            </div>
+                            </div>}
+                            {activeStep === 1 &&
                             <div className=' p-3'>
                                 <TextField id="address" sx={{width:'98%' , my:1}} label="Address" variant="outlined" color='success' 
                                     onChange={Event => setAddress(Event.target.value)} value={address}/>
                                 {User.addresses.map((value , index) => (
                                     <Button key={index} color='green' className=' m-2' onClick={() => setAddress(value)}>{value}</Button>
                                 ))}
-                            </div>
+                            </div>}
+                            {activeStep === 2 &&
                             <div>
                                 <CouponList/> {/*TODO Coupon list*/}
-                            </div>
+                            </div>}
+                            {activeStep === 3 &&
                             <div>
                                 <TotalPriceArea/> {/*TODO total price*/}
-                            </div>
-                        </SwipeableViews>
+                            </div>}
                     </div>
                 </div>
                 <footer className=" p-7 fixed bottom-0 w-full flex justify-between">
@@ -125,7 +126,7 @@ function OrderCreate() {
     
     function CouponList(){ //TODO Coupon ALL
 
-        const {selectCouponId: couponId , setSelectCouponId: setCouponId , setDiscount} = useOrderCreateStore<OrderCreate>((state) => state)
+        const {selectCouponId: couponId , setSelectCouponId: setCouponId , setDiscount} = useOrderCreateStore<IOrderCreate>((state) => state)
         
         return(
             <Grid container>
@@ -164,7 +165,7 @@ function OrderCreate() {
     function TotalPriceArea(){
         const titleArea = 9
         const priceArea = 3
-        const {discount} = useOrderCreateStore<OrderCreate>((state) => state)
+        const {discount} = useOrderCreateStore<IOrderCreate>((state) => state)
         return(
             <>
                 <div className=' flex justify-center w-full'>

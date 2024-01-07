@@ -12,14 +12,13 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
-    "@material-tailwind/react": "^2.1.7",
+    "@material-tailwind/react": "^2.0.2",
     "@mui/icons-material": "^5.14.16",
     "@mui/material": "^5.14.17",
     "axios": "^1.6.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.18.0",
-    "react-swipeable-views": "npm:@gromy/react-swipeable-views@^0.15.1",
     "zustand": "^4.4.7"
   },
   "devDependencies": {
@@ -38,7 +37,6 @@
     "sass": "^1.69.5",
     "tailwindcss": "^3.3.5",
     "typescript": "^5.0.2",
-    "vite": "^4.4.5",
-    "react-swipeable-views": "npm:@gromy/react-swipeable-views@^0.15.1"
+    "vite": "^4.4.5"
   }
 }

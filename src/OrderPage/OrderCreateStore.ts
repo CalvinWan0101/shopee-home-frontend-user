@@ -1,6 +1,6 @@
 import {create} from 'zustand'
 
-export interface OrderCreate{
+export interface IOrderCreate{
     selectCouponId : string;
     discount : number;
     price : number;
@@ -13,7 +13,7 @@ export interface OrderCreate{
     setSeasoningCouponList : (seasoningCouponList : seasoningCouponUserDto[]) => void;
 }
 
-export const useOrderCreateStore = create<OrderCreate>()((set) =>({
+export const useOrderCreateStore = create<IOrderCreate>()((set) =>({
     selectCouponId : "",
     discount : 0,
     price : 1000000,
