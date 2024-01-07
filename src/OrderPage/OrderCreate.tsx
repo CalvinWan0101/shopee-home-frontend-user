@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 
 import '@/css/Color.scss'
 import Img from '@/assets/testProductImg.jpg' //TODO delete me
 import './StepperStyle.scss'
 import { Login , useLoginStore } from '../LoginState'
 import OrderProductCard from './OrderProductCard'
+import { baseURL } from '../APIconfig.ts'
+import { OrderCreate , useOrderCreateStore } from './OrderCreateStore.ts'
 
 import { Box, Paper , Step, StepLabel, Stepper, Typography , TextField , Grid} from '@mui/material'
 import { Button , List , ListItem , ListItemPrefix , ListItemSuffix } from '@material-tailwind/react'
@@ -20,11 +23,35 @@ function OrderCreate() {
         'Check price'
     ];
 
-    const {User} = useLoginStore<Login>( (state) => state )
+    const {User , LoginState} = useLoginStore<Login>( (state) => state )
+    const {
+        shippingCouponList , setShippingCouponList ,
+        seasoningCouponList , setSeasoningCouponList,
+        price , setPrice,
+    } = useOrderCreateStore<OrderCreate>( (state) => state )
 
-    const [activeStep , setActiveStep] = useState<number>(0)
+    const [activeStep , setActiveStep] = useState<number>(-1)
+
+    const [shopId , setShopId] = useState("1013f7a0-0017-4c21-872f-c014914e6834")
+
+    setPrice(2755)
+
     useEffect(() => {
-        //setActiveStep(1)
+        setActiveStep(0)
+    } , [])
+
+    useEffect(() => {
+        if (LoginState){
+            axios
+            .get<ShopCouponList>(`${baseURL}coupon/user/${User.id}/shop/${shopId}`) // TODO shopID
+            .then((response) => {
+                setSeasoningCouponList(response.data.seasoningCouponUserDtos.filter((item) => item.claimed))
+                setShippingCouponList(response.data.shippingCouponUserDtos.filter((item) => item.claimed))
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+        }
     } , [])
 
     const [address , setAddress] = useState("")
@@ -95,29 +122,39 @@ function OrderCreate() {
         </>
     )
 
+    
     function CouponList(){ //TODO Coupon ALL
+
+        const {selectCouponId: couponId , setSelectCouponId: setCouponId , setDiscount} = useOrderCreateStore<OrderCreate>((state) => state)
+        
         return(
             <Grid container>
                 <Grid item xs={6} p={2}>
                     <Typography variant='h5' color={'green'}>免運券</Typography>
                     <List>
-                        <ListItem  className=' bg2'>
-                            <ListItemPrefix>
-                                <LocalActivityIcon/>
-                            </ListItemPrefix>
-                            優惠券
-                        </ListItem>
+                        {shippingCouponList.map((item , index) => (
+                            <ListItem key={index} style={(item.id === couponId) ? {color:'green'} : {}}
+                            onClick={() => {setCouponId(item.id); setDiscount(60);}} className=' bg2' disabled={(price < item.shippingLimit)}>
+                                <ListItemPrefix>
+                                    <LocalActivityIcon/>
+                                </ListItemPrefix>
+                                {`單筆滿$${item.shippingLimit}免運費`}
+                            </ListItem>
+                        ))}
                     </List>
                 </Grid>
                 <Grid item xs={6} p={2}>
                     <Typography variant='h5' color={'green'}>折價券</Typography>
                     <List>
-                        <ListItem  className=' bg2'>
-                            <ListItemPrefix>
-                                <LocalActivityIcon/>
-                            </ListItemPrefix>
-                            優惠券
-                        </ListItem>
+                        {seasoningCouponList.map((item , index) => (
+                            <ListItem key={index} style={(item.id === couponId) ? {color:'green'} : {}}
+                            onClick={() => {setCouponId(item.id); setDiscount(item.rate * price)}} className=' bg2'>
+                                <ListItemPrefix>
+                                    <LocalActivityIcon/>
+                                </ListItemPrefix>
+                                {`單筆訂單打${item.rate.toString().split(".")[1]}折`}
+                            </ListItem>
+                        ))}
                     </List>
                 </Grid>
             </Grid>
@@ -127,6 +164,7 @@ function OrderCreate() {
     function TotalPriceArea(){
         const titleArea = 9
         const priceArea = 3
+        const {discount} = useOrderCreateStore<OrderCreate>((state) => state)
         return(
             <>
                 <div className=' flex justify-center w-full'>
@@ -158,7 +196,7 @@ function OrderCreate() {
                         </Grid>
                         <Grid item xs={priceArea}>
                             <Typography variant='h5' color={red[900]}> {/*TODO coupon discount*/}
-                                -$60
+                                {`-$${discount}`}
                             </Typography>
                         </Grid>
                         <div className=' w-full h-[1px] bg-gray-600 my-1'/>

@@ -65,8 +65,6 @@ function Product() {
             console.log(error)
         });
     } , [])
-
-    const {LoginState , setLoginState} = useLoginStore<Login>( (state) => state );
     
     function ProductArea(){
 

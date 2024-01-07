@@ -6,15 +6,18 @@ import '@/css/Color.scss'
 import ProductPreview from '../ProductPage/ProductPreview.tsx'
 import './ShopInterface.ts'
 import '@/ProductPage/ProductInterface.ts'
+import { Login , useLoginStore } from '../LoginState.ts'
+import { baseURL } from '../APIconfig.ts'
 
 import { Avatar , Tab , Tabs , TabsHeader , TabsBody , TabPanel , List , ListItem , ListItemPrefix , ListItemSuffix } from '@material-tailwind/react'
 import { Paper , Typography , Grid} from '@mui/material'
 import LocalActivityIcon from '@mui/icons-material/LocalActivity';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import { baseURL } from '../APIconfig.ts'
 
 function Shop() {
     const {id} = useParams()
+
+    const {User , LoginState} = useLoginStore<Login>((state) => state)
 
     const [shopName , setShopName] = useState("")
     const [shopProductCount , setShopProductCount] = useState(0)
@@ -23,6 +26,11 @@ function Shop() {
     const [shopBackground , setShopBackground] = useState("")
     const [shopProduct , setShopProduct] = useState<ProductInList[]>([])
     const [shopDescription , setShopDescription] = useState("")
+
+    const [shippingCouponList , setShippingCouponList] = useState<shippingCouponUserDto[]>([])
+    const [seasoningCouponList , setSeasoningCouponList] =useState<seasoningCouponUserDto[]>([])
+
+    const [updateCoupon , setUpdateCoupon] = useState(0)
 
     useEffect(() => {
         axios
@@ -51,12 +59,33 @@ function Shop() {
         })
     } , [])
 
-    const coupon = Array.from({length: 100}, (_ , index) => ({
-        id: index + 1,
-        text: `滿 ${(index+1) * 10}$ 免運費`,
-        has: (index % 5 == 0)? true : false ,
-        isUsed: (index % 4 == 0)?true : false
-    }))
+    useEffect(() => {
+        if (LoginState){
+            axios
+            .get<ShopCouponList>(`${baseURL}coupon/user/${User.id}/shop/${id}`)
+            .then((response) => {
+                setSeasoningCouponList(response.data.seasoningCouponUserDtos)
+                setShippingCouponList(response.data.shippingCouponUserDtos)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+        }
+    } , [updateCoupon])
+
+    function handleClickCoupon(couponId:string , hased:boolean){
+        if (hased === false){
+            axios
+            .put(`${baseURL}coupon/user/${User.id}/coupon/${couponId}`)
+            .then((response) => {
+                console.log(response)
+                setUpdateCoupon(updateCoupon + 1)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+        }
+    }
 
     return (
         <div className=' flex justify-center'>
@@ -96,7 +125,16 @@ function Shop() {
                             </Typography>
                         </TabPanel>
                         <TabPanel value={"Coupon"}>
-                            <ShopCoupon/>
+                            {LoginState ?
+                                <ShopCouponArea/>:
+                                <Typography variant='h5' color={'grey'}>
+                                    請
+                                    <Link to={'/login'} className=' text-green-500 hover:text-green-700 hover:underline'>
+                                        登入
+                                    </Link>
+                                    以查看店家優惠券
+                                </Typography>
+                            }
                         </TabPanel>
                     </TabsBody>
                 </Tabs>
@@ -118,22 +156,23 @@ function Shop() {
         )
     }
 
-    function ShopCoupon(){
+    function ShopCouponArea(){
         return(
             <div>
                 <Grid container>
                     <Grid item xs={6} p={2}>
                         <Typography variant='h5' color={'green'}>免運券</Typography>
                         <List>
-                            {coupon.map((item , index) => (
-                                <ListItem disabled={item.isUsed} className=' bg2' key={index}
-                                style={(item.has && !item.isUsed) ? {color:"green"} : {}}>
+                            {shippingCouponList.map((item , index) => (
+                                <ListItem disabled={item.used} className=' bg2' key={index}
+                                style={(item.claimed && !item.used) ? {color:"green"} : {}}
+                                onClick={() => handleClickCoupon(item.id , item.claimed)}>
                                     <ListItemPrefix>
                                         <LocalActivityIcon/>
                                     </ListItemPrefix>
-                                    {item.text}
+                                    {`單筆滿$${item.shippingLimit}免運費`}
                                     <ListItemSuffix>
-                                        {item.has && !item.isUsed && <CheckCircleOutlineIcon/>}
+                                        {item.claimed && !item.used && <CheckCircleOutlineIcon/>}
                                     </ListItemSuffix>
                                 </ListItem>
                             ))}
@@ -142,15 +181,16 @@ function Shop() {
                     <Grid item xs={6} p={2}>
                         <Typography variant='h5' color={'green'}>折價券</Typography>
                         <List>
-                            {coupon.map((item , index) => (
-                                <ListItem disabled={item.isUsed} className=' bg2' key={index}
-                                style={(item.has && !item.isUsed) ? {color:"green"} : {}}>
+                            {seasoningCouponList.map((item , index) => (
+                                <ListItem disabled={item.used} className=' bg2' key={index}
+                                style={(item.claimed && !item.used) ? {color:"green"} : {}}
+                                onClick={() => handleClickCoupon(item.id , item.claimed)}>
                                     <ListItemPrefix>
                                         <LocalActivityIcon/>
                                     </ListItemPrefix>
-                                    {item.text}
+                                    {`單筆訂單打${item.rate.toString().split(".")[1]}折`}
                                     <ListItemSuffix>
-                                        {item.has && !item.isUsed && <CheckCircleOutlineIcon/>}
+                                        {item.claimed && !item.used && <CheckCircleOutlineIcon/>}
                                     </ListItemSuffix>
                                 </ListItem>
                             ))}
