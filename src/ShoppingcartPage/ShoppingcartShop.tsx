@@ -1,48 +1,54 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
 import { ShoppingcartProductCard } from './ShoppingcartProductCard.tsx';
+import { shoppingcartStore, useShoppingcartStore } from './ShoppingcartStore';
+import { ProductInShoppingcart } from './ShoppingcartDataInterface.ts';
+
 import { Checkbox, Typography } from '@mui/material';
 import { green } from '@mui/material/colors';
 
-export function ShoppingcartShop(props: { checked: boolean; onClick: () => void; shopData: ShopInShoppingcart; onDataChange: (ShopData: ShopInShoppingcart) => void; }) {
+export function ShoppingcartShop(props: { id : string }) {
 
-    function HandleAmountChange(productIndex: number, amount: number) {
-        const newShopData = props.shopData;
-        newShopData.productList[productIndex].amount = amount;
-        if (amount == 0) {
-            newShopData.productList.splice(productIndex, 1);
+    const {
+        shopList , setShopList ,
+        shopCheckList , setShopCheckList , 
+    } = useShoppingcartStore<shoppingcartStore>((state) => state)
+
+    const isGreen = () => !shopCheckList[findShopIndex()].productChecked.every((value , _ , array) => value === array[0])
+    const isChecked = () => shopCheckList[findShopIndex()].productChecked.every((value) => value === true)
+
+    const findShopIndex = () => shopList.findIndex((shop) => shop.id === props.id)
+
+    function handleClick(){
+        const newShopCheckList = [...shopCheckList]
+        const checked = isChecked()
+        for(let i = 0 ; i < newShopCheckList.length ; i++){
+            for(let j = 0 ; j < newShopCheckList[i].productChecked.length ; j++){
+                if (i === findShopIndex() && checked === false){
+                    newShopCheckList[i].productChecked[j] = true
+                }
+                else{
+                    newShopCheckList[i].productChecked[j] = false
+                }
+            }
         }
-        props.onDataChange(newShopData);
-    }
-
-    function HandleProductCheckedChange(productIndex: number, checked: boolean) {
-        const newShopData = props.shopData;
-        newShopData.productList[productIndex].checked = checked;
-        props.onDataChange(newShopData);
-    }
-
-    function checkedChange(checked: boolean) {
-        const newShopData = props.shopData;
-        newShopData.productList.forEach((value) => (value.checked = checked));
-        props.onDataChange(newShopData);
+        setShopCheckList(newShopCheckList)
     }
 
     return (
         <>
             <div className=' flex items-center my-3'>
-                <Checkbox color='success' checked={props.checked} onClick={props.onClick}
-                    indeterminate={!props.shopData.productList.every((value, _, array) => value.checked === array[0].checked)}
-                    onChange={(event) => checkedChange(event.target.checked)} />
+                <Checkbox color='success' checked={isChecked()} onClick={handleClick}
+                    indeterminate={isGreen()}/>
                 <Typography variant='h5'
-                    color={props.shopData.productList.reduce((accumulator, currentValue) => accumulator || currentValue.checked, false) ? green[500] : "default"}>
-                    {props.shopData.shopName}
+                    color={isGreen() ? green[500] : "default"}>
+                    {shopList[findShopIndex()].name}
                 </Typography>
             </div>
             <div>
-                {props.shopData.productList.map((product, productIndex) => (
-                    <div key={productIndex} className=' mb-4'>
-                        <ShoppingcartProductCard onCheckChange={(checked) => { HandleProductCheckedChange(productIndex, checked); }}
-                            amount={product.amount} onAmountChange={(newAmount) => HandleAmountChange(productIndex, newAmount)}
-                            productData={product} />
+                {shopList[findShopIndex()].products.map((product) => (
+                    <div key={product.id} className=' mb-4'>
+                        <ShoppingcartProductCard shopId={props.id} id={product.id}/>
                     </div>
                 ))}
             </div>

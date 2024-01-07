@@ -1,18 +1,17 @@
-interface ProductInShoppingcart {
-    productName: string;
-    Img: string;
-    price: number;
-    amount: number;
-    checked: boolean;
+export interface ShopInShoppingcart {
+    id:       string;
+    name:     string;
+    products: ProductInShoppingcart[];
 }
 
-interface ShopInShoppingcart {
-    shopName: string;
-    shopId: string;
-    productList: ProductInShoppingcart[];
+export interface ProductInShoppingcart {
+    id:       string;
+    name:     string;
+    image:    string;
+    quantity: number;
+    price:    number;
 }
 
-interface UsersShoppingcart {
-    userId: string;
-    ShopList: ShopInShoppingcart[];
+export interface ShopChecked {
+    productChecked : boolean[];
 }

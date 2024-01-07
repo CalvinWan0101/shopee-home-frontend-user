@@ -114,7 +114,7 @@ function Header() {
                             <Chip value="5" size="sm" color='light-green' className="rounded-full"/>
                         </ListItemSuffix>
                     </ListItem>
-                    <ListItem onClick={() => {closeDrawer(); navigate("/order/create");}}>
+                    <ListItem onClick={() => {closeDrawer(); navigate("/order");}}>
                         <ListItemPrefix>
                             <ReceiptLongIcon/>
                         </ListItemPrefix>
