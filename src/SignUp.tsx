@@ -126,7 +126,7 @@ function SignUp() {
         .then((response) => {
             setEmailError(false)
             setEmailErrorText("")
-            setPasswordError(false)
+            setPasswordError(false) 
             setPasswordErrorText("")
             setNameError(false)
             setNameErrorText("")
@@ -182,9 +182,6 @@ function SignUp() {
         }
     }
 
-    // function HandleSignupPressEnter() {
-    //         handleSignup()
-    // }
 
 
     return (
