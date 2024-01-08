@@ -8,6 +8,8 @@ import {User} from './UserInterface.ts'
 import { useLoginStore } from './LoginState.ts';
 
 import { Paper, FormGroup, TextField, Button } from '@mui/material';
+import { FormHelperText } from '@mui/material';
+
 
 function UserInformation() {
 
@@ -34,6 +36,7 @@ function UserInformation() {
     // const [address, setAddress] = useState(User.addresses[0]);
     const [addressError, setAddressError] = useState<boolean>(false);
     const [addressErrorText, setAddressErrorText] = useState<string>('');
+    
 
     // 初始化一個長度為10的列表，初始值為空字符串
     const emptyAddresses = Array(10).fill('');
@@ -44,7 +47,28 @@ function UserInformation() {
     );
 
     const [addresses, setAddresses] = useState(initialAddresses);
-    
+
+    // 添加新地址
+    const addAddress = () => {
+        if (addresses.length < 10) {
+            setAddresses([...addresses, '']);
+        }
+    };
+
+    // 移除特定索引的地址
+    const removeAddress = (index: number) => {
+        if (addresses.length > 1) {
+            const newAddresses = addresses.filter((_, addrIndex) => addrIndex !== index);
+            setAddresses(newAddresses);
+        }
+    };  
+
+    // 处理地址输入或添加新地址
+    const handleAddressChangeOrAdd = (index: number, newValue: string) => {
+        const updatedAddresses = [...addresses];
+        updatedAddresses[index] = newValue;
+        setAddresses(updatedAddresses);
+    };    
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files ? event.target.files[0] : undefined;
@@ -100,15 +124,24 @@ function UserInformation() {
             setPhoneNumberErrorText("")
         }
         //address為空判斷
-        if(addresses[0].trim() == ''){
+        // if(addresses[0].trim() == ''){
+        //     setAddressError(true);
+        //     setAddressErrorText("請至少輸入一個地址");
+        //     error = true;
+        // }
+        // else{
+        //     setAddressError(false);
+        //     setAddressErrorText("");
+        // }        
+        if (addresses.length === 0 || addresses.every(address => address.trim() === '')) {
             setAddressError(true);
             setAddressErrorText("請至少輸入一個地址");
             error = true;
-        }
-        else{
+        } 
+        else {
             setAddressError(false);
             setAddressErrorText("");
-        }        
+        }
 
         if (error){
             return;
@@ -189,28 +222,43 @@ function UserInformation() {
                         <TextField label="Phone Number" type="text" value={phoneNumber} 
                             color='success' sx={{ mb: 2 }}
                             onChange={(e) => setPhoneNumber(e.target.value)} onKeyDown={HandlePhoneNumberPressEnter} 
-                            error={phoneNumberError} helperText={phoneNumberErrorText} />
-                        {/* <TextField label="Address" type="text" value={addresses[0].value} 
-                            color='success' sx={{ mb: 2 }}
-                            onChange={(e) => handleAddressChangeOrAdd(0, e.target.value)} onKeyDown={HandleAddressPressEnter} 
-                            error={addressError} helperText={addressErrorText} /> */}
+                            error={phoneNumberError} helperText={phoneNumberErrorText} />                        
                         {addresses.map((address, index) => (
-                        <TextField 
-                            key={`address-field-${index}`} // 使用索引作為key
-                            label={`Address ${index + 1}`} 
-                            type="text" 
-                            value={address} // address 現在是一個字符串
-                            color='success' 
-                            sx={{ mb: 2 }}
-                            onChange={(e) => handleAddressChangeOrAdd(index, e.target.value)}
-                            onKeyDown={HandlePhoneNumberPressEnter}
-                            error={addressError} 
-                            helperText={addressErrorText} 
-                        />
-))}
-
+                            <div key={`address-field-${index}`} className="flex items-center mb-2">
+                                <TextField 
+                                    label={`Address ${index + 1}`} 
+                                    type="text" 
+                                    value={address}
+                                    color='success' 
+                                    sx={{ mr: 2, flex: 1 }}
+                                    onChange={(e) => handleAddressChangeOrAdd(index, e.target.value)}
+                                    error={addressError}
+                                />
+                                <Button onClick={() => removeAddress(index)} color="error" variant="outlined" size="small">
+                                    Delete
+                                </Button>
+                            </div>
+                        ))}
+                        {addressError && (
+                            <FormHelperText
+                                error={true}
+                                sx={{ 
+                                    ml: 2,
+                                    mb: 2, 
+                                }}
+                            >
+                                {addressErrorText}
+                            </FormHelperText>
+                        )}
+                        <div className="flex justify-between">
+                            <Button type="submit" color="success" variant="contained" sx={{ textTransform: 'none' }}>Submit</Button>
+                            {addresses.length < 10 && (
+                                <Button onClick={addAddress} color="primary" variant="outlined" sx={{ textTransform: 'none' }}>
+                                    Add Address
+                                </Button>
+                            )}
+                        </div>
                     </FormGroup>
-                    <Button type="submit" color="success" variant="contained" sx={{ textTransform: 'none' }}>Submit</Button>
                 </form>
             </Paper>
         </div>
