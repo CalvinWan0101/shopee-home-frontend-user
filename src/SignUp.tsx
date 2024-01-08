@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
-import { useNavigate , Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 import { baseURL } from "./APIconfig.ts"
 import '/src/css/Color.scss';
 import {User} from './UserInterface.ts'
 
-import { Paper, FormControl, FormGroup, TextField, Button } from '@mui/material';
+import { Paper, FormGroup, TextField, Button } from '@mui/material';
 
 function SignUp() {
 
@@ -19,6 +19,10 @@ function SignUp() {
     const [password, setPassword] = useState<string>('');
     const [passwordError, setPasswordError] = useState<boolean>(false);
     const [passwordErrorText, setPasswordErrorText] = useState<string>('');
+
+    const [confirmPassword, setConfirmPassword] = useState<string>('');
+    const [confirmPasswordError, setConfirmPasswordError] = useState<boolean>(false);
+    const [confirmPasswordErrorText, setConfirmPasswordErrorText] = useState<string>('');
     
     const [name, setName] = useState<string>('');
     const [nameError, setNameError] = useState<boolean>(false);
@@ -55,7 +59,6 @@ function SignUp() {
         handleSignup()
 
     }
-    //        event.preventDefault();
 
     const handleSignup = () => {
         let error : boolean = false
@@ -78,6 +81,15 @@ function SignUp() {
         else{
             setPasswordError(false)
             setPasswordErrorText("")
+        }
+        //confirmPassword
+        if (confirmPassword != password) {
+            setConfirmPasswordError(true);
+            setConfirmPasswordErrorText("密碼不相同");
+            error = true;
+        } else {
+            setConfirmPasswordError(false);
+            setConfirmPasswordErrorText("");
         }
         //name為空判斷
         if(name == ''){
@@ -123,18 +135,7 @@ function SignUp() {
             avatar: inputImage,
             addresses: [address]           
         })
-        .then((response) => {
-            setEmailError(false)
-            setEmailErrorText("")
-            setPasswordError(false) 
-            setPasswordErrorText("")
-            setNameError(false)
-            setNameErrorText("")
-            setPhoneNumberError(false)
-            setPhoneNumberErrorText("")
-            setAddressError(false)
-            setAddressErrorText("")
-            //SignUp(response.data)
+        .then(() => {
             navigate('/login')
         })
         .catch((error) => {
@@ -143,6 +144,8 @@ function SignUp() {
             setEmailErrorText("")
             setPasswordError(true)
             setPasswordErrorText("")
+            setConfirmPasswordError(false)
+            setConfirmPasswordErrorText("")
             setNameError(true)
             setNameErrorText("")
             setPhoneNumberError(true)
@@ -159,6 +162,11 @@ function SignUp() {
     }
     
     function HandlePasswordPressEnter(e: React.KeyboardEvent<HTMLInputElement>) {
+        if (e.key === "Enter") {
+            document.getElementById("ConfirmPasseordInput")?.focus();
+        }
+    }
+    function HandleConfirmPasswordPressEnter(e: React.KeyboardEvent<HTMLInputElement>) {
         if (e.key === "Enter") {
             document.getElementById("NameInput")?.focus();
         }
@@ -200,8 +208,12 @@ function SignUp() {
                             error={emailError} helperText={emailErrorText} />
                         <TextField label="Password" type="password" value={password} 
                             color='success' sx={{ mb: 2 }} 
-                            onChange={(e) => setPassword(e.target.value)} onKeyDown={HandlePasswordPressEnter} 
+                            onChange={(e) => setPassword(e.target.value)} onKeyDown={HandleConfirmPasswordPressEnter} 
                             error={passwordError} helperText={passwordErrorText} />
+                        <TextField label="Confirm Password" type="password" value={confirmPassword} 
+                            color='success' sx={{ mb: 2 }} 
+                            onChange={(e) => setConfirmPassword(e.target.value)} onKeyDown={HandlePasswordPressEnter} 
+                            error={confirmPasswordError} helperText={confirmPasswordErrorText} />
                         <TextField label="Name" type="text" value={name} 
                             color='success' sx={{ mb: 2 }}
                             onChange={(e) => setName(e.target.value)} onKeyDown={HandleNamePressEnter} 

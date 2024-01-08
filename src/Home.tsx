@@ -6,8 +6,18 @@ import {Link} from 'react-router-dom'
 import axios from 'axios'
 import { baseURL } from './APIconfig'
 import { error } from 'console'
-
+//test
+import { useNavigate } from 'react-router-dom';
+import { Button } from '@mui/material';
+//test
 function Home() {
+    //test
+    const navigate = useNavigate();
+
+    const handleLoginRedirect = () => {
+        navigate('/PersionalInformation');
+    };
+    //test
 
     const [productList , setProductList] = useState<ProductInList[]>([])
 
@@ -23,6 +33,7 @@ function Home() {
     } , [])
 
     return (
+        
         <div className=' flex flex-wrap justify-evenly'>
             {productList.map((item) => (
                 <div key={item.id} className=' mx-1.5 my-3 '>
@@ -31,6 +42,9 @@ function Home() {
                     </Link>
                 </div>
             ))}
+            <Button variant="contained" color="primary" onClick={handleLoginRedirect}>
+            登入
+            </Button>
         </div>
     )
 }
