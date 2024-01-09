@@ -4,16 +4,18 @@ import LogIn from './LogIn'
 import Home from './Home'
 import Product from './ProductPage/Product.tsx'
 import Shop from './ShopPage/Shop.tsx'
-import Test from './test.tsx' //TODO: delete me
+import Test from './test.tsx' //TODO delete me
 import { ThemeProvider, createTheme } from "@mui/material";
 import CssBaseline from '@mui/material/CssBaseline';
 import { MaterialTailwindTheme, ThemeProvider as ThemeProviderTailwind} from "@material-tailwind/react";
 import Header from './Header'
-import UserInformation from './UserInformation.tsx'
+import UserInformation from './UserInformationPage/UserInformation.tsx'
 import Shoppingcart from './ShoppingcartPage/Shoppingcart.tsx'
 import OrderCreate from './OrderPage/OrderCreate.tsx'
 import Search from './Search.tsx'
 import Order from './OrderPage/Order.tsx'
+import SignUp from './SignUp.tsx'
+import Verify from './UserInformationPage/Verify.tsx'
 
 
 const darkTheme = createTheme({
@@ -53,6 +55,7 @@ function App() {
             <Route path='/test' element={<Test/>}></Route>
             <Route path='/order/create' element={<OrderCreate/>}></Route>
             <Route path='/order' element={<Order/>}></Route>
+            <Route path='/signup' element={<SignUp/>}></Route>
           </Route>
         </Routes>
       </BrowserRouter>

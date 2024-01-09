@@ -1,16 +1,16 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate , Link } from 'react-router-dom'
 import axios from 'axios';
 
-import { baseURL } from "./APIconfig.ts"
-import '/src/css/Color.scss'
-import {Login , useLoginStore} from './LoginState'
-import {User} from './UserInterface.ts'
+import { Login , useLoginStore } from '../LoginState';
+import {User} from '../UserInterface.ts'
+import { baseURL } from '../APIconfig';
 
-import {Button , Paper , TextField} from '@mui/material'
+import {Button , Paper , TextField , Typography} from '@mui/material'
 
-function LogIn() {
-    
+function Verify(props:{ok : (email : string , password : string) => void}) {
+
+        
     const [account, setAccount] = useState<string>('');
     const [accountError, setAccountError] = useState<boolean>(false)
     const [accountErrorText, setAccountErrorText] = useState<string>('')
@@ -22,6 +22,12 @@ function LogIn() {
     const navigate = useNavigate()
 
     const {LoginState , User , Login} = useLoginStore<Login>( (state) => state );
+
+    useEffect(() => {
+        if (!LoginState){
+            navigate('/login')
+        }
+    } , [])
 
     function HandleLogIn(){
         let error : boolean = false
@@ -54,12 +60,15 @@ function LogIn() {
             password:password
         })
         .then((response) => {
-            setAccountError(false)
-            setAccountErrorText("")
-            setPasswordError(false)
-            setPasswordErrorText("")
-            Login(response.data)
-            navigate('/')
+            if (response.data.id === User.id){
+                props.ok(account , password)
+            }
+            else{
+                setAccountError(true)
+                setAccountErrorText("帳號或密碼錯誤")
+                setPasswordError(true)
+                setPasswordErrorText("帳號或密碼錯誤")
+            }
         })
         .catch((error) => {
             console.log(error);
@@ -85,6 +94,11 @@ function LogIn() {
     return (
         <div className=' flex items-center justify-center'>
             <Paper className=' bg2 p-10 m-10'>
+                <div className=' mb-3'>
+                    <Typography variant='h5' color={'gray'}>
+                        請輸入帳號密碼
+                    </Typography>
+                </div>
                 <div>
                     <TextField id="LogInAcount" sx={{mb:2}} label="Account" variant="outlined" color='success' 
                         onChange={Event => setAccount(Event.target.value)} error={accountError} helperText={accountErrorText}
@@ -94,12 +108,11 @@ function LogIn() {
                         onChange={Event => setPassword(Event.target.value)} error={passwordError} helperText={passwordErrorText}
                         onKeyDown={(e) => HandlePasswordPressEnter(e)} type='password'/>
                     <div/>
-                    <Button id='LogInBtn' sx={{textTransform:'none'}} fullWidth={true} variant='contained' color='success' onClick={HandleLogIn}>Login</Button>
-                    <Link to={'/signup'} className='float-right text-green-500 hover:text-green-700 hover:underline'>Sign up</Link>
+                    <Button id='LogInBtn' sx={{textTransform:'none'}} fullWidth={true} variant='contained' color='success' onClick={HandleLogIn}>Verify</Button>
                 </div>
             </Paper>
         </div>
     )
 }
 
-export default LogIn
+export default Verify

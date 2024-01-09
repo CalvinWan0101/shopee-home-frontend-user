@@ -175,9 +175,9 @@ function Header() {
                             <ShoppingCartIcon/>
                         </ListItemPrefix>
                         ShoppingCart
-                        <ListItemSuffix>
+                        {/* <ListItemSuffix>
                             <Chip value="5" size="sm" color='light-green' className="rounded-full"/>
-                        </ListItemSuffix>
+                        </ListItemSuffix> */}
                     </ListItem>
                     <ListItem onClick={() => {closeDrawer(); navigate("/order");}}>
                         <ListItemPrefix>

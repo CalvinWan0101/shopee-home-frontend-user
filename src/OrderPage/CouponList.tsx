@@ -48,6 +48,11 @@ function CouponList(){ //TODO Coupon ALL
                             {`單筆滿$${item.shippingLimit}免運費`}
                         </ListItem>
                     ))}
+                    {shippingCouponList.length === 0 &&
+                        <Typography variant="h6" color={'gray'}>
+                            無
+                        </Typography>
+                    }
                 </List>
             </Grid>
             <Grid item xs={6} p={2}>
@@ -62,6 +67,11 @@ function CouponList(){ //TODO Coupon ALL
                             {`單筆訂單打${item.rate.toString().split(".")[1]}折`}
                         </ListItem>
                     ))}
+                    {seasoningCouponList.length === 0 &&
+                        <Typography variant="h6" color={'gray'}>
+                            無
+                        </Typography>
+                    }
                 </List>
             </Grid>
         </Grid>
