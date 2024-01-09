@@ -260,7 +260,7 @@ function UserInformation() {
                                             Upload Avater
                                         </Typography>
                                     </label>
-                                    <IconButton onClick={() => setInputImage("")}>
+                                    <IconButton color='error' onClick={() => setInputImage("")}>
                                         <DeleteIcon/>
                                     </IconButton>
                                 </div>
@@ -290,14 +290,14 @@ function UserInformation() {
                                 <Dialog open={openDialog}>
                                     <DialogTitle>
                                         Address
-                                        <IconButton onClick={HandleAddAddress}>
+                                        <IconButton color='success' onClick={HandleAddAddress}>
                                             <AddBoxIcon/>
                                         </IconButton>
                                     </DialogTitle>
                                     <FormGroup>
                                         {addressList.map((address , index) => (
                                             <div key={index} className=' mr-5 flex items-center'>
-                                                <IconButton onClick={() => HandleDeleteAddress(index)} sx={{mb:3}}>
+                                                <IconButton color='error' onClick={() => HandleDeleteAddress(index)} sx={{mb:3}}>
                                                     <DeleteIcon/>
                                                 </IconButton>
                                                 <TextField label={`Address ${index + 1}`} type="text" value={address} 

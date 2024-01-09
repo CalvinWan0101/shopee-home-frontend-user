@@ -13,7 +13,7 @@ import UserInformation from './UserInformationPage/UserInformation.tsx'
 import Shoppingcart from './ShoppingcartPage/Shoppingcart.tsx'
 import OrderCreate from './OrderPage/OrderCreate.tsx'
 import Search from './Search.tsx'
-import Order from './OrderPage/Order.tsx'
+import OrderListPage from './OrderPage/Order.tsx'
 import SignUp from './SignUp.tsx'
 import Verify from './UserInformationPage/Verify.tsx'
 
@@ -54,7 +54,7 @@ function App() {
             <Route path='/Shop/:id' element={<Shop/>}></Route>
             <Route path='/test' element={<Test/>}></Route>
             <Route path='/order/create' element={<OrderCreate/>}></Route>
-            <Route path='/order' element={<Order/>}></Route>
+            <Route path='/order' element={<OrderListPage/>}></Route>
             <Route path='/signup' element={<SignUp/>}></Route>
           </Route>
         </Routes>

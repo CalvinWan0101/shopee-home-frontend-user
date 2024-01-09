@@ -14,7 +14,8 @@ export function ShoppingcartShop(props: { id : string }) {
         shopCheckList , setShopCheckList , 
     } = useShoppingcartStore<shoppingcartStore>((state) => state)
 
-    const isGreen = () => !shopCheckList[findShopIndex()].productChecked.every((value , _ , array) => value === array[0])
+    const isGreen = () => shopCheckList[findShopIndex()].productChecked.some((value) => value === true)
+    const isIndeterminate = () => !shopCheckList[findShopIndex()].productChecked.every((value , _ , array) => value === array[0])
     const isChecked = () => shopCheckList[findShopIndex()].productChecked.every((value) => value === true)
 
     const findShopIndex = () => shopList.findIndex((shop) => shop.id === props.id)
@@ -39,7 +40,7 @@ export function ShoppingcartShop(props: { id : string }) {
         <>
             <div className=' flex items-center my-3'>
                 <Checkbox color='success' checked={isChecked()} onClick={handleClick}
-                    indeterminate={isGreen()}/>
+                    indeterminate={isIndeterminate()}/>
                 <Typography variant='h5'
                     color={isGreen() ? green[500] : "default"}>
                     {shopList[findShopIndex()].name}
