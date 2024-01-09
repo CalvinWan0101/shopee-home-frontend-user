@@ -42,9 +42,11 @@ function Home() {
                     </Link>
                 </div>
             ))}
+            {/* //test */}
             <Button variant="contained" color="primary" onClick={handleLoginRedirect}>
-            登入
+            修改
             </Button>
+            {/* //test */}
         </div>
     )
 }

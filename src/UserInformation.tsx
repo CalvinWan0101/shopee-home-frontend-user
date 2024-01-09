@@ -12,12 +12,10 @@ import { FormHelperText } from '@mui/material';
 
 
 function UserInformation() {
-
-    const { User } = useLoginStore();
-    const navigate = useNavigate()
+    const { User, Login } = useLoginStore((state) => state);
+    const navigate = useNavigate();
 
     const [inputImage, setInputImage] = useState("");
-
     const [email] = useState(User.email);
     
     const [password, setPassword] = useState<string>('');
@@ -48,20 +46,36 @@ function UserInformation() {
 
     const [addresses, setAddresses] = useState(initialAddresses);
 
-    // 添加新地址
     const addAddress = () => {
-        if (addresses.length < 10) {
-            setAddresses([...addresses, '']);
+        const nonEmptyAddresses = addresses.filter(address => address.trim() !== '');
+
+        if (nonEmptyAddresses.length < 10) {
+            const newAddresses = [...nonEmptyAddresses, 'Address'];
+
+            while (newAddresses.length < 10) {
+                newAddresses.push('');
+            }
+
+            setAddresses(newAddresses);
         }
     };
 
-    // 移除特定索引的地址
     const removeAddress = (index: number) => {
-        if (addresses.length > 1) {
-            const newAddresses = addresses.filter((_, addrIndex) => addrIndex !== index);
-            setAddresses(newAddresses);
+        const nonEmptyAddresses = addresses.filter(address => address.trim() !== '');
+        let newAddresses = [];
+
+        if (nonEmptyAddresses.length > 1) {
+            newAddresses = addresses.filter((_, addrIndex) => addrIndex !== index);
+        } else {
+            newAddresses = [...addresses];
         }
-    };  
+
+        while (newAddresses.length < 10) {
+            newAddresses.push('');
+        }
+
+        setAddresses(newAddresses);
+    };
 
     // 处理地址输入或添加新地址
     const handleAddressChangeOrAdd = (index: number, newValue: string) => {
@@ -124,24 +138,15 @@ function UserInformation() {
             setPhoneNumberErrorText("")
         }
         //address為空判斷
-        // if(addresses[0].trim() == ''){
-        //     setAddressError(true);
-        //     setAddressErrorText("請至少輸入一個地址");
-        //     error = true;
-        // }
-        // else{
-        //     setAddressError(false);
-        //     setAddressErrorText("");
-        // }        
-        if (addresses.length === 0 || addresses.every(address => address.trim() === '')) {
+        if(addresses[0].trim() == ''){
             setAddressError(true);
             setAddressErrorText("請至少輸入一個地址");
             error = true;
-        } 
-        else {
+        }
+        else{
             setAddressError(false);
             setAddressErrorText("");
-        }
+        }        
 
         if (error){
             return;
@@ -154,10 +159,11 @@ function UserInformation() {
             phoneNumber: phoneNumber,
             password: password,
             avatar: inputImage,
-            addresses: addresses        
+            addresses: addresses.filter(address => address.trim() !== '')     
         })
-        .then(() => {
-            navigate('/')
+        .then((response) => {
+            Login(response.data);
+            navigate('/');
         })
         .catch((error) => {
             console.log(error);
@@ -223,7 +229,7 @@ function UserInformation() {
                             color='success' sx={{ mb: 2 }}
                             onChange={(e) => setPhoneNumber(e.target.value)} onKeyDown={HandlePhoneNumberPressEnter} 
                             error={phoneNumberError} helperText={phoneNumberErrorText} />                        
-                        {addresses.map((address, index) => (
+                        {addresses.filter(address => address.trim() !== '').map((address, index) => (
                             <div key={`address-field-${index}`} className="flex items-center mb-2">
                                 <TextField 
                                     label={`Address ${index + 1}`} 
@@ -232,6 +238,7 @@ function UserInformation() {
                                     color='success' 
                                     sx={{ mr: 2, flex: 1 }}
                                     onChange={(e) => handleAddressChangeOrAdd(index, e.target.value)}
+                                    onKeyDown={HandleAddressPressEnter}
                                     error={addressError}
                                 />
                                 <Button onClick={() => removeAddress(index)} color="error" variant="outlined" size="small">
@@ -252,11 +259,7 @@ function UserInformation() {
                         )}
                         <div className="flex justify-between">
                             <Button type="submit" color="success" variant="contained" sx={{ textTransform: 'none' }}>Submit</Button>
-                            {addresses.length < 10 && (
-                                <Button onClick={addAddress} color="primary" variant="outlined" sx={{ textTransform: 'none' }}>
-                                    Add Address
-                                </Button>
-                            )}
+                            <Button onClick={addAddress} color="primary" variant="outlined" sx={{ textTransform: 'none' }}>Add Address</Button>
                         </div>
                     </FormGroup>
                 </form>
