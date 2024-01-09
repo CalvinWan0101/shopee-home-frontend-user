@@ -6,18 +6,19 @@ import {Link} from 'react-router-dom'
 import axios from 'axios'
 import { baseURL } from './APIconfig'
 import { error } from 'console'
-//test
-import { useNavigate } from 'react-router-dom';
-import { Button } from '@mui/material';
-//test
-function Home() {
-    //test
-    const navigate = useNavigate();
 
-    const handleLoginRedirect = () => {
-        navigate('/PersionalInformation_confirm');
-    };
-    //test
+//有時因為快取或其他原因導致側邊介面打不開，本頁註解內容為在主業最下方新增一個跳至修改個人資料的按鈕，環境出錯時測試用，可刪除
+// import { useNavigate } from 'react-router-dom';
+// import { Button } from '@mui/material';
+
+function Home() {
+    // //test
+    // const navigate = useNavigate();
+
+    // const handleLoginRedirect = () => {
+    //     navigate('/PersionalInformation_confirm');
+    // };
+    // //test
 
     const [productList , setProductList] = useState<ProductInList[]>([])
 
@@ -42,11 +43,11 @@ function Home() {
                     </Link>
                 </div>
             ))}
-            {/* //test */}
-            <Button variant="contained" color="primary" onClick={handleLoginRedirect}>
+
+            {/* <Button variant="contained" color="primary" onClick={handleLoginRedirect}>
             修改
-            </Button>
-            {/* //test */}
+            </Button> */}
+
         </div>
     )
 }

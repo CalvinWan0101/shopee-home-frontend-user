@@ -81,7 +81,7 @@ function UserInformation() {
         setAddresses(newAddresses);
     };
 
-    // 处理地址输入或添加新地址
+    // 地址輸入以及新地址
     const handleAddressChangeOrAdd = (index: number, newValue: string) => {
         const updatedAddresses = [...addresses];
         updatedAddresses[index] = newValue;
@@ -222,7 +222,7 @@ function UserInformation() {
         }
     }
 
-    console.log(addresses);  // 在 return 語句之前添加這行代碼來檢查 addresses
+    // console.log(addresses);檢查 addresses
 
 
     return (
