@@ -11,9 +11,9 @@ function CouponList(){ //TODO Coupon ALL
     const {
         selectCouponId , setSelectCouponId , 
         discount , setDiscount ,
+        productList , 
         seasoningCouponList , 
         shippingCouponList ,
-        price ,
     } = useOrderCreateStore<IOrderCreate>((state) => state)
 
     function handleSelectCoupon(id : string){
@@ -25,6 +25,14 @@ function CouponList(){ //TODO Coupon ALL
             setSelectCouponId(id)
         }
     }
+
+    const price = () => {
+        let p = 0
+        productList.forEach(product => {
+            p += product.quantity * product.price
+        });
+        return p
+    }
     
     return(
         <Grid container>
@@ -33,7 +41,7 @@ function CouponList(){ //TODO Coupon ALL
                 <List>
                     {shippingCouponList.map((item , index) => (
                         <ListItem key={index} style={(item.id === selectCouponId) ? {color:'green'} : {}}
-                        onClick={() => {setDiscount(60); handleSelectCoupon(item.id);}} className=' bg2' disabled={(price < item.shippingLimit)}>
+                        onClick={() => {setDiscount(60); handleSelectCoupon(item.id);}} className=' bg2' disabled={(price() < item.shippingLimit)}>
                             <ListItemPrefix>
                                 <LocalActivityIcon/>
                             </ListItemPrefix>
@@ -47,7 +55,7 @@ function CouponList(){ //TODO Coupon ALL
                 <List>
                     {seasoningCouponList.map((item , index) => (
                         <ListItem key={index} style={(item.id === selectCouponId) ? {color:'green'} : {}}
-                        onClick={() => {setDiscount(Math.ceil(price - item.rate * price));  handleSelectCoupon(item.id);}} className=' bg2'>
+                        onClick={() => {setDiscount(Math.ceil(price() - item.rate * price()));  handleSelectCoupon(item.id);}} className=' bg2'>
                             <ListItemPrefix>
                                 <LocalActivityIcon/>
                             </ListItemPrefix>

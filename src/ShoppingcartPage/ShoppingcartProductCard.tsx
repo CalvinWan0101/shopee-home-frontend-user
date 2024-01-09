@@ -15,7 +15,13 @@ export function ShoppingcartProductCard(props: {shopId : string ,  id : string }
         shopCheckList , setShopCheckList ,
     } = useShoppingcartStore<shoppingcartStore>((state) => state)
 
-    //const [id , setId] = useState("")
+    useEffect(() => {
+        if (shopList[findShopIndex()].products[findProductIndex()].quantity > shopList[findShopIndex()].products[findProductIndex()].quantityLimit){
+            const newShopList = [...shopList]
+            newShopList[findShopIndex()].products[findProductIndex()].quantity = shopList[findShopIndex()].products[findProductIndex()].quantityLimit
+            setShopList(newShopList)
+        }
+    } , [shopList[findShopIndex()].products[findProductIndex()].quantity])
 
 
     function findShopIndex(){
@@ -69,7 +75,7 @@ export function ShoppingcartProductCard(props: {shopId : string ,  id : string }
         <>
             <Paper className='bg2 flex p-1'>
                 <Checkbox color='success' checked={shopCheckList[findShopIndex()].productChecked[findProductIndex()]} onClick={handleClick}/>
-                <img className=" rounded-md h-24 aspect-square" alt="ProductImg" src={Img}/> {/*TODO product image */}
+                <img className=" rounded-md h-24 aspect-square" alt="ProductImg" src={shopList[findShopIndex()].products[findProductIndex()].image}/> {/*TODO product image */}
                 <div>
                     <div className="overflow-hidden m-1 ml-4 text-xl">
                         <p className="line-clamp-1">
@@ -81,7 +87,7 @@ export function ShoppingcartProductCard(props: {shopId : string ,  id : string }
                             <RemoveIcon />
                         </IconButton>
                         <p>{shopList[findShopIndex()].products[findProductIndex()].quantity}</p>
-                        <IconButton onClick={handleAdd} color='success'>
+                        <IconButton onClick={handleAdd} color='success' disabled={(shopList[findShopIndex()].products[findProductIndex()].quantity === shopList[findShopIndex()].products[findProductIndex()].quantityLimit)}>
                             <AddIcon />
                         </IconButton>
                         <Typography variant='h6' color={green[500]} className=''>{'$' + shopList[findShopIndex()].products[findProductIndex()].price}</Typography>

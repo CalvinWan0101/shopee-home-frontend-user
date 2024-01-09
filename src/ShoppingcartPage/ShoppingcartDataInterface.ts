@@ -1,3 +1,7 @@
+export interface shoppingCart{
+    shops: ShopInShoppingcart[]
+}
+
 export interface ShopInShoppingcart {
     id:       string;
     name:     string;
@@ -5,11 +9,12 @@ export interface ShopInShoppingcart {
 }
 
 export interface ProductInShoppingcart {
-    id:       string;
-    name:     string;
-    image:    string;
-    quantity: number;
-    price:    number;
+    id:            string;
+    image:         string;
+    name:          string;
+    price:         number;
+    quantity:      number;
+    quantityLimit: number;
 }
 
 export interface ShopChecked {

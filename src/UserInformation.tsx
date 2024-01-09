@@ -7,7 +7,6 @@ import {Paper} from '@mui/material'
 function UserInformation() {
 
     const [inputImage , setInputImage] = useState<string>("")
-    console.log(inputImage)
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files ? event.target.files[0] : undefined;

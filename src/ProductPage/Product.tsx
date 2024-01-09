@@ -1,12 +1,13 @@
 //import react
 import React, { useEffect } from 'react'
 import { useState } from 'react';
-import { Params, useParams , Link } from 'react-router-dom'
+import { Params, useParams , Link, useNavigate } from 'react-router-dom'
 
 //import other
 import ProductImg from '@/assets/testProductImg.jpg'
 import '/src/css/Color.scss'
 import { Login , useLoginStore } from '../LoginState'
+import { IOrderCreate , useOrderCreateStore } from '../OrderPage/OrderCreateStore';
 
 //import material UI
 import { Card, Grid, Paper , Typography , Chip , Avatar , IconButton , Snackbar , MuiAlert, Alert} from '@mui/material';
@@ -14,14 +15,14 @@ import AddShoppingCartTwoToneIcon from '@mui/icons-material/AddShoppingCartTwoTo
 import ElectricRickshawTwoToneIcon from '@mui/icons-material/ElectricRickshawTwoTone';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
-import { Carousel, Accordion, AccordionHeader, AccordionBody, Rating, Button} from "@material-tailwind/react";
+import { Carousel, Accordion, AccordionHeader, AccordionBody, Button} from "@material-tailwind/react";
 import { green } from '@mui/material/colors';
 import axios from 'axios';
 import { baseURL } from '../APIconfig';
 
 function Product() {
 
-    const {id} = useParams(); // 取得產品ID
+    const {id} = useParams<string>(); // 取得產品ID
 
     const [name , setName] = useState("")
     const [amount , setAmount] = useState(0)
@@ -36,6 +37,7 @@ function Product() {
 
     const [shopImage , setShopImage] = useState("")
     const [shopName , setShopName] = useState("")
+    const [shopId , setShopId] = useState("")
 
     const [addShoppingcartSuccess , setAddShoppingcartSuccess] = useState(false)
 
@@ -60,6 +62,7 @@ function Product() {
         .then((response) => {
             setShopImage(response.data.avatar)
             setShopName(response.data.name)
+            setShopId(response.data.id)
         })
         .catch((error) => {
             console.log(error)
@@ -68,7 +71,56 @@ function Product() {
     
     function ProductArea(){
 
-        const [count , setCount] = useState(1)
+        const [selectQuantity , setCount] = useState(1)
+
+        const {User , LoginState} = useLoginStore<Login>((state) => state)
+
+        const navigate = useNavigate()
+
+        function handleAddToShoppingCart(){
+            if (!LoginState){
+                navigate('/login')
+            }
+            if (deleted){
+                0
+            }
+            else{
+                axios
+                .put(`${baseURL}shopping_cart/product` , {
+                    userId:User.id,
+                    productId:id,
+                    quantity:selectQuantity
+                })
+                .then((response) => {
+                    setAddShoppingcartSuccess(true)
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+            }
+        }
+
+        const {setProductList} = useOrderCreateStore<IOrderCreate>((state) => state)
+
+        function handleBuy(){
+            if (!LoginState){
+                navigate('/login')
+            }
+            if (deleted){
+                0
+            }
+            else{
+                setProductList([{
+                    id:            id as string,
+                    image:         image[0],
+                    name:          name,
+                    price:         parseInt(`${price * (discountRate == null ? 1 : discountRate)}`),
+                    quantity:      selectQuantity,
+                    quantityLimit: 0,
+                }] , shopId)
+                navigate('/order/create')
+            }
+        }
 
         return(
             <Paper sx={{my:4, p: 2}} className='bg2' elevation={5}>
@@ -96,18 +148,18 @@ function Product() {
                                 </Typography>
                             </div>
                             <div className=' flex items-center mt-auto mb-3'>
-                                <IconButton size='large' onClick={() => setCount((count - 1 < 1 ? 1 : count - 1))} color='success'>
+                                <IconButton size='large' onClick={() => setCount(selectQuantity - 1)} disabled={(selectQuantity === 1)} color='success'>
                                     <RemoveIcon sx={{height: 38 , width: 38}} />
                                 </IconButton>
-                                <Typography variant='h5'>{count}</Typography>
-                                <IconButton size='large' onClick={() => setCount((count + 1 > amount ? count : count + 1))} color='success'>
+                                <Typography variant='h5'>{selectQuantity}</Typography>
+                                <IconButton size='large' onClick={() => setCount(selectQuantity + 1)} disabled={selectQuantity === amount} color='success'>
                                     <AddIcon sx={{height: 38 , width: 38}}/>
                                 </IconButton>
                                 <Typography variant='h5' color={'gray'}>{"商品庫存 : " + amount}</Typography>
                             </div>
                             <Grid container className=' mb-1'>
                                 <Grid item xs={6} className=' pl-2 pr-2'>
-                                    <Button color='light-green' className='flex items-center w-full' onClick={() => setAddShoppingcartSuccess(true)}>
+                                    <Button color='light-green' className='flex items-center w-full' onClick={handleAddToShoppingCart}>
                                         <AddShoppingCartTwoToneIcon fontSize='large' className=' ml-auto text-white'></AddShoppingCartTwoToneIcon>
                                         <div className=' ml-1 mr-auto text-xl text-white'>
                                             加入購物車
@@ -115,7 +167,7 @@ function Product() {
                                     </Button>
                                 </Grid>
                                 <Grid item xs={6} className=' pl-2 pr-2'>
-                                    <Button color='green' className=' flex items-center w-full'>
+                                    <Button color='green' className=' flex items-center w-full' onClick={handleBuy}>
                                         <ElectricRickshawTwoToneIcon fontSize='large' className=' ml-auto text-white'></ElectricRickshawTwoToneIcon>
                                         <div className=' ml-1 mr-auto text-xl text-white'>
                                             立即購買
@@ -186,6 +238,11 @@ function Product() {
             <Snackbar open={addShoppingcartSuccess} autoHideDuration={6000}>
                 <Alert severity='success' style={{backgroundColor:"#A7ECA9"}} onClose={() => setAddShoppingcartSuccess(false)}>
                     成功加入購物車
+                </Alert>
+            </Snackbar>
+            <Snackbar open={deleted}>
+                <Alert severity='error' style={{}}>
+                    此產品已下架
                 </Alert>
             </Snackbar>
         </>

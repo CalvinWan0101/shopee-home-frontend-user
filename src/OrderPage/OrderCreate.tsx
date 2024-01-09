@@ -27,17 +27,12 @@ function OrderCreate() {
     const {
         shippingCouponList , setShippingCouponList ,
         seasoningCouponList , setSeasoningCouponList,
-        price , setPrice,
         selectAddress , setSelectAddress,
+        productList,
+        shopId
     } = useOrderCreateStore<IOrderCreate>( (state) => state )
 
     const [activeStep , setActiveStep] = useState<number>(0)
-
-    const [shopId , setShopId] = useState("1013f7a0-0017-4c21-872f-c014914e6834")
-
-    useEffect(() => {
-        setPrice(2700)
-    } , [])
 
     useEffect(() => {
         if (LoginState){
@@ -81,15 +76,11 @@ function OrderCreate() {
                     <div className=' w-5/6 items-center bg1 p-5 overflow-hidden relative'>
                         {activeStep === 0 &&
                         <div className=' p-3'>
-                            <div className=' mb-2'> {/*TODO product list*/}
-                                <OrderProductCard/>
-                            </div>
-                            <div className=' mb-2'>
-                                <OrderProductCard/>
-                            </div>
-                            <div className=' mb-2'>
-                                <OrderProductCard/>
-                            </div>
+                            {productList.map((product) => (
+                                <div key={product.id} className=' mb-2'>
+                                    <OrderProductCard name={product.name} price={product.price} quantity={product.quantity} image={product.image}/>
+                                </div>
+                            ))}
                         </div>}
                         {activeStep === 1 &&
                         <div className=' p-3'>

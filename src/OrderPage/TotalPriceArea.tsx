@@ -8,7 +8,16 @@ import { red } from "@mui/material/colors"
 function TotalPriceArea(){
     const titleArea = 9
     const priceArea = 3
-    const {price , discount} = useOrderCreateStore<IOrderCreate>((state) => state)
+    const {productList , discount} = useOrderCreateStore<IOrderCreate>((state) => state)
+
+    const price = () => {
+        let p = 0
+        productList.forEach(product => {
+            p += product.quantity * product.price
+        });
+        return p
+    }
+
     return(
         <>
             <div className=' flex justify-center w-full'>
@@ -20,7 +29,7 @@ function TotalPriceArea(){
                     </Grid>
                     <Grid item xs={priceArea}>
                         <Typography variant='h5' color={'green'} pl={1}> {/*TODO price*/}
-                            {`$${price}`}
+                            {`$${price()}`}
                         </Typography>
                     </Grid>
                     <Grid item xs={titleArea}>
@@ -55,7 +64,7 @@ function TotalPriceArea(){
                     </Grid>
                     <Grid item xs={priceArea}>
                         <Typography variant='h5' color={'green'} pl={1}> {/*TODO total price*/}
-                            {`$${price - discount + 60}`}
+                            {`$${price() - discount + 60}`}
                         </Typography>
                     </Grid>
                 </Grid>

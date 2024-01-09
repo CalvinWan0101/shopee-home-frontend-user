@@ -24,7 +24,7 @@ function Header() {
 
     const navigate = useNavigate()
 
-    const [isLogInPage, setIsLogInPage] = useState<boolean>(false)
+    const [centerText, setCenterText] = useState<string>("")
 
     const [open , setOpen] = useState<boolean>(false)
     const openDrawer = () => setOpen(true)
@@ -40,11 +40,27 @@ function Header() {
 
     const location = useLocation()
     useEffect(()=>{
-        if(location.pathname === '/login'){
-            setIsLogInPage(true)
-        }
-        else{
-            setIsLogInPage(false)
+        switch(location.pathname){
+            case '/login':
+                setCenterText('Login')
+                break;
+            case '/signup':
+                setCenterText('Signup')
+                break;
+            case '/PersionalInformation':
+                setCenterText('Persional Information')
+                break;
+            case '/Shoppingcart':
+                setCenterText('ShoppingCart')
+                break;
+            case '/order':
+                setCenterText('Order')
+                break;
+            case '/order/create':
+                setCenterText('Checkout')
+                break;
+            default:
+                setCenterText("")
         }
         const autoScoll = document.getElementById('autoScoll') as HTMLElement 
         autoScoll.scrollTop = 0;
@@ -54,14 +70,14 @@ function Header() {
 
         return(
             <div className=' h-full ml-auto p-1 box-border flex items-center'>
-                {!isLogInPage && !LoginState &&
+                {!LoginState &&
                 <Link to={'login'}>
                     <ButtonBase>
                         <Avatar></Avatar>
                     </ButtonBase>
                 </Link>
                 }
-                {!isLogInPage && LoginState &&
+                {LoginState &&
                 <ButtonBase onClick={openDrawer}>
                     <UserAvater User={User}/>
                 </ButtonBase>
@@ -70,8 +86,57 @@ function Header() {
         )
     }
 
-    function AccountDrawer(){
+    function CenterArea(){
+
+        const [keyword , setKeyword] = useState("")
+
+        function handleSearch(){
+            if (keyword != ""){
+                navigate('/search/' + keyword)
+            }
+        }
+
         return(
+            <div className=' h-full w-3/6 p-1 ml-5 box-border'>
+                {(centerText === "") ?
+                <Paper component='form' className='bg1' sx={{p: '2px 4px', ml:'10px', display: 'flex', alignItems: 'center', width: "100%", height: "95%"}}>
+                    <InputBase sx={{ ml: 1, flex: 1 }} placeholder="搜尋產品" onKeyDown={(Event) => {if(Event.key === "Enter"){handleSearch()}}} onChange={(event) => setKeyword(event.target.value)}/>                    
+                    <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+                    <IconButton type="button" sx={{ p: '10px' }} aria-label="search" onClick={handleSearch}>
+                        <SearchIcon />
+                    </IconButton>
+                </Paper> :
+                <div id ="logintext" className=' p-2 box-border text-2xl flex items-center text-gray-400'>
+                    {centerText}
+                </div>
+                }
+            </div>
+        )
+    }
+
+    function Logo(){
+        return(
+            <div className=' h-full w-auto rounded-full p-2 box-border hover:animate-pulse'>
+                <Link to={'/'} id='shopeeLogo' className=' h-full flex items-center'>
+                    <Icon component={ShoppingCartIcon} fontSize='large'></Icon>
+                    <span className=' flex-nowrap text-2xl ml-2'>Shopee Home</span>
+                </Link>
+            </div>
+        )
+    }
+
+    return (
+        <>
+            <div id='autoScoll' className=' h-screen overflow-y-scroll'>
+                <header className=' h-20 p-3 flex items-center bg3'>
+                    <Logo/>
+                    <CenterArea/>
+                    <AccountArea/>
+                </header>
+                <div className=' h-full '>
+                    <Outlet/>
+                </div>
+            </div>
             <Drawer open={open} onClose={closeDrawer} placement='right' className=' p-4'>
                 <div className=" ml-2 mb-6 flex flex-wrap items-center justify-between">
                     <div className=' w-full flex justify-end'>
@@ -129,63 +194,6 @@ function Header() {
                     </ListItem>
                 </List>
             </Drawer>
-        )
-    }
-
-    function CenterArea(){
-
-        const [keyword , setKeyword] = useState("")
-
-        function handleSearch(){
-            if (keyword != ""){
-                navigate('/search/' + keyword)
-            }
-        }
-
-        return(
-            <div className=' h-full w-3/6 p-1 ml-5 box-border'>
-                {!isLogInPage &&
-                <Paper component='form' className='bg1' sx={{p: '2px 4px', ml:'10px', display: 'flex', alignItems: 'center', width: "100%", height: "95%"}}>
-                    <InputBase sx={{ ml: 1, flex: 1 }} placeholder="搜尋產品" onKeyDown={(Event) => {if(Event.key === "Enter"){handleSearch()}}} onChange={(event) => setKeyword(event.target.value)}/>                    
-                    <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-                    <IconButton type="button" sx={{ p: '10px' }} aria-label="search" onClick={handleSearch}>
-                        <SearchIcon />
-                    </IconButton>
-                </Paper>
-                }
-                {isLogInPage &&
-                <div id ="logintext" className=' p-2 box-border text-2xl flex items-center text-gray-400'>
-                    Login
-                </div>
-                }
-            </div>
-        )
-    }
-
-    function Logo(){
-        return(
-            <div className=' h-full w-auto rounded-full p-2 box-border hover:animate-pulse'>
-                <Link to={'/'} id='shopeeLogo' className=' h-full flex items-center'>
-                    <Icon component={ShoppingCartIcon} fontSize='large'></Icon>
-                    <span className=' flex-nowrap text-2xl ml-2'>Shopee Home</span>
-                </Link>
-            </div>
-        )
-    }
-
-    return (
-        <>
-            <AccountDrawer/>
-            <div id='autoScoll' className=' h-screen overflow-y-scroll'>
-                <header className=' h-20 p-3 flex items-center bg3'>
-                    <Logo/>
-                    <CenterArea/>
-                    <AccountArea/>
-                </header>
-                <div className=' h-full '>
-                    <Outlet/>
-                </div>
-            </div>
         </>
 
     )
