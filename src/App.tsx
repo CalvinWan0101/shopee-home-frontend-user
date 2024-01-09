@@ -10,6 +10,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { MaterialTailwindTheme, ThemeProvider as ThemeProviderTailwind} from "@material-tailwind/react";
 import Header from './Header'
 import UserInformation from './UserInformation.tsx'
+import UserInformation_confirm from './UserInformation_confirm.tsx'
 import Shoppingcart from './ShoppingcartPage/Shoppingcart.tsx'
 import OrderCreate from './OrderPage/OrderCreate.tsx'
 import Search from './Search.tsx'
@@ -49,6 +50,7 @@ function App() {
             <Route path='/Product/:id' element={<Product/>}></Route>
             <Route path='/login' element={<LogIn/>}></Route>
             <Route path='/PersionalInformation' element={<UserInformation/>}></Route>
+            <Route path='/PersionalInformation_confirm' element={<UserInformation_confirm/>}></Route>
             <Route path='/ShoppingCart' element={<Shoppingcart/>}></Route>
             <Route path='/Shop/:id' element={<Shop/>}></Route>
             <Route path='/test' element={<Test/>}></Route>

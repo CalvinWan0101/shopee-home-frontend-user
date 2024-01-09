@@ -22,6 +22,10 @@ function UserInformation() {
     const [passwordError, setPasswordError] = useState<boolean>(false);
     const [passwordErrorText, setPasswordErrorText] = useState<string>('');
     
+    const [confirmPassword, setConfirmPassword] = useState<string>('');
+    const [confirmPasswordError, setConfirmPasswordError] = useState<boolean>(false);
+    const [confirmPasswordErrorText, setConfirmPasswordErrorText] = useState<string>('');
+
     const [name, setName] = useState(User.name);
     const [nameError, setNameError] = useState<boolean>(false);
     const [nameErrorText, setNameErrorText] = useState<string>('');
@@ -117,6 +121,15 @@ function UserInformation() {
             setPasswordError(false)
             setPasswordErrorText("")
         }
+        //confirmPassword
+        if (confirmPassword != password) {
+            setConfirmPasswordError(true);
+            setConfirmPasswordErrorText("密碼不相同");
+            error = true;
+        } else {
+            setConfirmPasswordError(false);
+            setConfirmPasswordErrorText("");
+        }
         //name為空判斷
         if(name == ''){
             setNameError(true)
@@ -169,6 +182,8 @@ function UserInformation() {
             console.log(error);
             setPasswordError(true)
             setPasswordErrorText("")
+            setConfirmPasswordError(false)
+            setConfirmPasswordErrorText("")
             setNameError(true)
             setNameErrorText("")
             setPhoneNumberError(true)
@@ -179,6 +194,11 @@ function UserInformation() {
     }
     
     function HandlePasswordPressEnter(e: React.KeyboardEvent<HTMLInputElement>) {
+        if (e.key === "Enter") {
+            document.getElementById("ConfirmPasseordInput")?.focus();
+        }
+    }
+    function HandleConfirmPasswordPressEnter(e: React.KeyboardEvent<HTMLInputElement>) {
         if (e.key === "Enter") {
             document.getElementById("NameInput")?.focus();
         }
@@ -217,10 +237,14 @@ function UserInformation() {
                     <FormGroup>
                         <TextField label="Email" type="email" value={email} disabled
                             color='success' sx={{ mb: 2 }}/>
-                        <TextField label="Password" type="password" value={password} 
+                        <TextField label="New Password (can be same)" type="password" value={password} 
                             color='success' sx={{ mb: 2 }} 
                             onChange={(e) => setPassword(e.target.value)} onKeyDown={HandlePasswordPressEnter} 
                             error={passwordError} helperText={passwordErrorText} />
+                        <TextField label="Confirm New Password" type="password" value={confirmPassword} 
+                            color='success' sx={{ mb: 2 }} 
+                            onChange={(e) => setConfirmPassword(e.target.value)} onKeyDown={HandleConfirmPasswordPressEnter} 
+                            error={confirmPasswordError} helperText={confirmPasswordErrorText} />
                         <TextField label="Name" type="text" value={name} 
                             color='success' sx={{ mb: 2 }}
                             onChange={(e) => setName(e.target.value)} onKeyDown={HandleNamePressEnter} 
@@ -236,12 +260,12 @@ function UserInformation() {
                                     type="text" 
                                     value={address}
                                     color='success' 
-                                    sx={{ mr: 2, flex: 1 }}
+                                    sx={{ mr: 0.6, flex: 1 }}
                                     onChange={(e) => handleAddressChangeOrAdd(index, e.target.value)}
                                     onKeyDown={HandleAddressPressEnter}
                                     error={addressError}
                                 />
-                                <Button onClick={() => removeAddress(index)} color="error" variant="outlined" size="small">
+                                <Button sx={{ height: 56 }} onClick={() => removeAddress(index)} color="error" variant="outlined" size="small">
                                     Delete
                                 </Button>
                             </div>
@@ -258,8 +282,8 @@ function UserInformation() {
                             </FormHelperText>
                         )}
                         <div className="flex justify-between">
-                            <Button type="submit" color="success" variant="contained" sx={{ textTransform: 'none' }}>Submit</Button>
-                            <Button onClick={addAddress} color="primary" variant="outlined" sx={{ textTransform: 'none' }}>Add Address</Button>
+                            <Button type="submit" color="success" variant="contained" sx={{ height: 56 }}>Submit</Button>
+                            <Button onClick={addAddress} color="primary" variant="outlined" sx={{ height: 56 }}>Add Address</Button>
                         </div>
                     </FormGroup>
                 </form>

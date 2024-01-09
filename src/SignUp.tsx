@@ -208,11 +208,11 @@ function SignUp() {
                             error={emailError} helperText={emailErrorText} />
                         <TextField label="Password" type="password" value={password} 
                             color='success' sx={{ mb: 2 }} 
-                            onChange={(e) => setPassword(e.target.value)} onKeyDown={HandleConfirmPasswordPressEnter} 
+                            onChange={(e) => setPassword(e.target.value)} onKeyDown={HandlePasswordPressEnter} 
                             error={passwordError} helperText={passwordErrorText} />
                         <TextField label="Confirm Password" type="password" value={confirmPassword} 
                             color='success' sx={{ mb: 2 }} 
-                            onChange={(e) => setConfirmPassword(e.target.value)} onKeyDown={HandlePasswordPressEnter} 
+                            onChange={(e) => setConfirmPassword(e.target.value)} onKeyDown={HandleConfirmPasswordPressEnter} 
                             error={confirmPasswordError} helperText={confirmPasswordErrorText} />
                         <TextField label="Name" type="text" value={name} 
                             color='success' sx={{ mb: 2 }}

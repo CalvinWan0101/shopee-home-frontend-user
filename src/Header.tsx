@@ -99,7 +99,7 @@ function Header() {
                     </div>
                 </div>
                 <List>
-                    <ListItem onClick={() => {closeDrawer(); navigate("/PersionalInformation");}}>
+                    <ListItem onClick={() => {closeDrawer(); navigate("/PersionalInformation_confirm");}}>
                         <ListItemPrefix>
                             <PersonIcon/>
                         </ListItemPrefix>

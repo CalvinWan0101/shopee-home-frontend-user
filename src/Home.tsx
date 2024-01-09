@@ -15,7 +15,7 @@ function Home() {
     const navigate = useNavigate();
 
     const handleLoginRedirect = () => {
-        navigate('/PersionalInformation');
+        navigate('/PersionalInformation_confirm');
     };
     //test
 
