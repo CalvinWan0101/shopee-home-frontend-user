@@ -99,7 +99,7 @@ function OrderCard(props:{order : Order , onFinish : () => void}){
         <div className=' pb-5'>
             <Accordion className='bg3'>
                 <AccordionSummary expandIcon={<ExpandMoreIcon/>}>
-                    <div className=' w-1/2 flex items-center'>
+                    <div className=' w-3/4 flex items-center'>
                         <Typography variant='h6'>
                             Order ID : {props.order.id} 
                             {(props.order.startTime != null && props.order.deliverTime != null) && <span className=' text-green-300'>(已完成)</span>}
@@ -109,7 +109,7 @@ function OrderCard(props:{order : Order , onFinish : () => void}){
                             <Button variant='outlined' color='green' className=' w-20 ml-3' onClick={handleFinishOrder}>取貨</Button>
                         }
                     </div>
-                    <div className=' w-1/2 flex justify-end pr-3'>
+                    <div className=' w-1/4 flex justify-end pr-3'>
                         <Typography variant='h6' color={green[500]}>
                             {`$${props.order.totalPrice}`}
                         </Typography>
