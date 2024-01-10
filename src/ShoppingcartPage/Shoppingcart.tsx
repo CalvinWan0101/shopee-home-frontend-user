@@ -43,6 +43,7 @@ function Shoppingcart() {
             axios
             .get<shoppingCart | "">(`${baseURL}shopping_cart/${User.id}`)
             .then((response) => {
+                console.log(response.data)
                 if (response.data != ""){
                     response.data.shops.forEach(shop => {
                         productCheckList = []

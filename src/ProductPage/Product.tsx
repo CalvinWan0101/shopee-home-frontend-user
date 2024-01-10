@@ -41,6 +41,16 @@ function Product() {
 
     const [addShoppingcartSuccess , setAddShoppingcartSuccess] = useState(false)
 
+    const canBuy = () => {
+        if (deleted === true){
+            return false
+        }
+        if (amount <= 0){
+            return false
+        }
+        return true
+    }
+
     useEffect(() => {
         axios
         .get<ProductDetail>(baseURL + "product/" + id)
@@ -81,7 +91,7 @@ function Product() {
             if (!LoginState){
                 navigate('/login')
             }
-            if (deleted){
+            if (!canBuy()){
                 0
             }
             else{
@@ -106,7 +116,7 @@ function Product() {
             if (!LoginState){
                 navigate('/login')
             }
-            if (deleted){
+            if (!canBuy()){
                 0
             }
             else{
@@ -148,11 +158,11 @@ function Product() {
                                 </Typography>
                             </div>
                             <div className=' flex items-center mt-auto mb-3'>
-                                <IconButton size='large' onClick={() => setCount(selectQuantity - 1)} disabled={(selectQuantity === 1)} color='success'>
+                                <IconButton size='large' onClick={() => setCount(selectQuantity - 1)} disabled={(selectQuantity === 1) || !canBuy()} color='success'>
                                     <RemoveIcon sx={{height: 38 , width: 38}} />
                                 </IconButton>
-                                <Typography variant='h5'>{selectQuantity}</Typography>
-                                <IconButton size='large' onClick={() => setCount(selectQuantity + 1)} disabled={selectQuantity === amount} color='success'>
+                                <Typography variant='h5'>{canBuy() ? selectQuantity : 0}</Typography>
+                                <IconButton size='large' onClick={() => setCount(selectQuantity + 1)} disabled={selectQuantity >= amount || !canBuy()} color='success'>
                                     <AddIcon sx={{height: 38 , width: 38}}/>
                                 </IconButton>
                                 <Typography variant='h5' color={'gray'}>{"商品庫存 : " + amount}</Typography>
@@ -240,9 +250,10 @@ function Product() {
                     成功加入購物車
                 </Alert>
             </Snackbar>
-            <Snackbar open={deleted}>
+            <Snackbar open={!canBuy()}>
                 <Alert severity='error' style={{}}>
-                    此產品已下架
+                    {deleted === true && '此產品已下架'}
+                    {amount <= 0 && '此產品目前無庫存'}
                 </Alert>
             </Snackbar>
         </>

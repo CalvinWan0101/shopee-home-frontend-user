@@ -21,8 +21,7 @@ export function ShoppingcartProductCard(props: {shopId : string ,  id : string }
             newShopList[findShopIndex()].products[findProductIndex()].quantity = shopList[findShopIndex()].products[findProductIndex()].quantityLimit
             setShopList(newShopList)
         }
-    } , [shopList[findShopIndex()].products[findProductIndex()].quantity])
-
+    } , [shopList])
 
     function findShopIndex(){
         return shopList.findIndex((value) => value.id === props.shopId )
@@ -57,7 +56,7 @@ export function ShoppingcartProductCard(props: {shopId : string ,  id : string }
         const newShopList = [...shopList]
         const newShopCheckList = [...shopCheckList]
         newShopList[findShopIndex()].products[findProductIndex()].quantity -= 1
-        if (newShopList[findShopIndex()].products[findProductIndex()].quantity === 0){
+        if (newShopList[findShopIndex()].products[findProductIndex()].quantity <= 0){
             if (newShopList[findShopIndex()].products.length === 1){
                 newShopCheckList.splice(findShopIndex() , 1)
                 newShopList.splice(findShopIndex() , 1)
@@ -74,7 +73,7 @@ export function ShoppingcartProductCard(props: {shopId : string ,  id : string }
     return (
         <>
             <Paper className='bg2 flex p-1'>
-                <Checkbox color='success' checked={shopCheckList[findShopIndex()].productChecked[findProductIndex()]} onClick={handleClick}/>
+                <Checkbox color='success' onClick={handleClick}/>
                 <img className=" rounded-md h-24 aspect-square" alt="ProductImg" src={shopList[findShopIndex()].products[findProductIndex()].image}/> {/*TODO product image */}
                 <div>
                     <div className="overflow-hidden m-1 ml-4 text-xl">

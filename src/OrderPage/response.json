@@ -1,11 +1,86 @@
-{
-  "userId": "30e7e267-c791-424a-a94b-fa5e695d27e7",
-  "address": "忠孝東路87號",
-  "couponId": "efbec3f1-563b-4b71-892b-a6db85bf76dc",
-  "products": [
-    {
-      "id": "6874ada1-747f-41a7-bb9a-613d2ec0ce1d",
-      "quantity": 3
-    }
-  ]
-}
+[
+  {
+    "id": "f9d01135-323e-479d-837a-889ab8916f49",
+    "userId": "30e7e267-c791-424a-a94b-fa5e695d27e7",
+    "couponId": "efbec3f1-563b-4b71-892b-a6db85bf76dc",
+    "address": "比基尼環礁比奇堡貝殼街124號鳳梨屋",
+    "totalPrice": 10080,
+    "shippingCost": 60,
+    "rate": 0.1,
+    "shippingLimit": 0,
+    "startTime": null,
+    "deliverTime": null,
+    "products": [
+      {
+        "id": "6874ada1-747f-41a7-bb9a-613d2ec0ce1d",
+        "name": "iphone",
+        "price": 32103,
+        "quantity": 2,
+        "image": "iphone_image_1"
+      },
+      {
+        "id": "8c883a21-fad1-43af-8b15-54b2c1c7a70e",
+        "name": "xiaomi",
+        "price": 17999,
+        "quantity": 2,
+        "image": "xiaomi_image_1"
+      }
+    ]
+  },
+  {
+    "id": "629af7fc-ffd9-4201-b18a-cd9096314f05",
+    "userId": "30e7e267-c791-424a-a94b-fa5e695d27e7",
+    "couponId": "3bfd295f-3215-4585-b935-6e253ad1e54f",
+    "address": "比基尼環礁比奇堡貝殼街124號鳳梨屋",
+    "totalPrice": 100204,
+    "shippingCost": 0,
+    "rate": 0.0,
+    "shippingLimit": 1000,
+    "startTime": "2024-01-03",
+    "deliverTime": null,
+    "products": [
+      {
+        "id": "6874ada1-747f-41a7-bb9a-613d2ec0ce1d",
+        "name": "iphone",
+        "price": 32103,
+        "quantity": 2,
+        "image": "iphone_image_1"
+      },
+      {
+        "id": "8c883a21-fad1-43af-8b15-54b2c1c7a70e",
+        "name": "xiaomi",
+        "price": 17999,
+        "quantity": 2,
+        "image": "xiaomi_image_1"
+      }
+    ]
+  },
+  {
+    "id": "15aeafa1-2561-4098-ad07-e5d599c2ae3b",
+    "userId": "30e7e267-c791-424a-a94b-fa5e695d27e7",
+    "couponId": null,
+    "address": "比基尼環礁比奇堡貝殼街124號鳳梨屋",
+    "totalPrice": 100264,
+    "shippingCost": 60,
+    "rate": 0.0,
+    "shippingLimit": 0,
+    "startTime": "2024-01-01",
+    "deliverTime": null,
+    "products": [
+      {
+        "id": "6874ada1-747f-41a7-bb9a-613d2ec0ce1d",
+        "name": "iphone",
+        "price": 32103,
+        "quantity": 2,
+        "image": "iphone_image_1"
+      },
+      {
+        "id": "8c883a21-fad1-43af-8b15-54b2c1c7a70e",
+        "name": "xiaomi",
+        "price": 17999,
+        "quantity": 2,
+        "image": "xiaomi_image_1"
+      }
+    ]
+  }
+]
