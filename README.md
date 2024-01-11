@@ -7,7 +7,7 @@
 3. 輸入 `npm run dev`
 4. 把螢幕上出現的網址貼到 disable CORS policy 的 Google Chrome 瀏覽器
 
-## 使用方式
+## How To Use
 
 ### 1. Client (未登入)
 
@@ -42,7 +42,7 @@
    4. 按下Personal Information 會先要求重新輸入帳號密碼確認身份後，跳到個人資訊修改頁面。
       ![確認身份頁面](./README_image/user_confirmPage.png)
       ![個人資訊頁面](./README_image/user_InfprmationPage.png)
-   5. 按下添加地址即可在個人資訊中添加常用地址以加快結帳速度  
+   5. 按下添加地址即可在個人資訊中添加常用地址以加快結帳速度。  
    （常用地址會顯示在結帳介面）。
       ![地址頁面](./README_image/user_addressPage.png)
    6. 登入後的user可以使用client的所有功能，包括剛剛提到user無法領取的優惠券。  
