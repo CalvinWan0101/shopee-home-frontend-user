@@ -73,7 +73,7 @@ export function ShoppingcartProductCard(props: {shopId : string ,  id : string }
     return (
         <>
             <Paper className='bg2 flex p-1'>
-                <Checkbox color='success' onClick={handleClick}/>
+                <Checkbox checked={shopCheckList[findShopIndex()].productChecked[findProductIndex()]} color='success' onClick={handleClick}/>
                 <img className=" rounded-md h-24 aspect-square" alt="ProductImg" src={shopList[findShopIndex()].products[findProductIndex()].image}/> {/*TODO product image */}
                 <div>
                     <div className="overflow-hidden m-1 ml-4 text-xl">
