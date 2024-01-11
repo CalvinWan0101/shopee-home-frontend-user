@@ -39,30 +39,30 @@
    3. 登入後點擊右上角user頭像可以打開drawer，從drawer可以連到user的各個相關頁面以及登出。
       <img src='./README_image/user_drawerPage.png'/>
    4. 按下Personal Information 會先要求重新輸入帳號密碼確認身份後，跳到個人資訊修改頁面。
-      <img src='./README_image/user_confirmPage'/>
-      <img src='./README_image/user_InfprmationPage'/>
+      <img src='./README_image/user_confirmPage.png'/>
+      <img src='./README_image/user_InfprmationPage.png'/>
    5. 按下添加地址即可在個人資訊中添加常用地址以加快結帳速度（常用地址會顯示在結帳介面）。
-      <img src='./README_image/user_addressPage'/>
+      <img src='./README_image/user_addressPage.png'/>
    6. 登入後的user可以使用client的所有功能，包括剛剛提到user無法領取的優惠券。
       (商店頁面可以看到優惠券，黑色代表未領取、綠色打勾代表已領取、灰色代表已使用)
       <img src='./README_image/user_shopPage_coupon.png'/>
    7. 在商品頁面按+-按鈕選擇數量，按下加入購物車且加入成功時左下角會出現提示，可以去購物車結帳完成訂單。
-      <img src='./README_image/user_shopping_1'/>
+      <img src='./README_image/user_shopping_1.png'/>
    8. 或者按下立即購買按鈕後會直接進入購買頁面（後面一起介紹）。
-      <img src='./README_image/user_shopping_2'/>
+      <img src='./README_image/user_shopping_2.png'/>
    9. 打開右上角頭像按下ShoppingCart即可前往購物車。
-      <img src='./README_image/user_createOrderPage_1'/>
+      <img src='./README_image/user_createOrderPage_1.png'/>
    10. 選擇想結帳的商品內容，同一筆訂單可以選擇同一商家的部分商品或全部商品進行結帳，不可以選擇不同商店的商品進行結帳。（勾選有設計無法同時勾選不同商店的商品）。
-       <img src='./README_image/user_createOrderPage_2'/>
+       <img src='./README_image/user_createOrderPage_2.png'/>
    11. 在結帳頁面可以選擇之前輸入的地址或是自行輸入想要運送的地址。（剛剛按下直接購買也是跳到這個界面）。
-       <img src='./README_image/user_createOrderPage_3'/>
+       <img src='./README_image/user_createOrderPage_3.png'/>
    12. 按下下一頁之後可以選擇剛才在商家領取的優惠卷，再次按下可取消使用。
-       <img src='./README_image/user_createOrderPage_4'/>
+       <img src='./README_image/user_createOrderPage_4.png'/>
    13. 按下下一頁之後跳轉至確認下訂的頁面，按下立即下訂即下單成功。    
-      <img src='./README_image/user_createOrderPage_5'/>
+      <img src='./README_image/user_createOrderPage_5.png'/>
    14. 接下來可以按下user頭像，選擇Order查看訂單狀況，現在的狀況是尚未出貨。
-       <img src='./README_image/user_createOrderPage_6'/>
-   15. 在賣家出貨之後會變成以下畫面（賣家出貨流程請見賣場的README），按下取貨即可看到取貨成功的畫面。
-       <img src='./README_image/user_createOrderPage_7'/>
+       <img src='./README_image/user_createOrderPage_6.png'/>
+   15. 在賣家出貨之後會變成以下畫面（賣家出貨流程請見賣場的README），按下取貨即可看到取貨成功的畫面，以下分別是為出貨，已出貨(未取貨)，已出貨(已取貨)。
+       <img src='./README_image/user_createOrderPage_7.png'/>
    16. 按下user頭像，選擇Log Out登出，即變成登出狀態。
 
